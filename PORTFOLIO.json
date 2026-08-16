@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "owner": "vigilanty0x",
+  "snapshotAt": "2026-08-16T19:32:09.580Z",
+  "featured": [
+    {
+      "area": "provenance",
+      "repository": "ai-assistance-manifest",
+      "url": "https://github.com/vigilanty0x/ai-assistance-manifest",
+      "maturity": "prototype",
+      "headSha": "d47ed252a2f480a378a0906421e9ed969b5d8bec",
+      "treeSha": "fb5d6e171be5ba896962d27517f0604a3fbbae31",
+      "verification": "PASS",
+      "release": null
+    },
+    {
+      "area": "routing",
+      "repository": "model-router",
+      "url": "https://github.com/vigilanty0x/model-router",
+      "maturity": "prototype",
+      "headSha": "141496b3c601234becbf928a7ea99a26b52571a7",
+      "treeSha": "e07f1dabcdd1eafd6fd917d5d24044d8fa121846",
+      "verification": "PASS",
+      "release": null
+    },
+    {
+      "area": "diagnostics",
+      "repository": "repo-doctor-ai",
+      "url": "https://github.com/vigilanty0x/repo-doctor-ai",
+      "maturity": "prototype",
+      "headSha": "ba82d0f5fcf80d5bb863a599580b8d080527bc7b",
+      "treeSha": "c03e12551f9c2b6e8bf8439ebb7f8c28d46140fd",
+      "verification": "BLOCKED",
+      "blockedReason": "Tests pass; exact isolated artifact build toolchain is unavailable offline.",
+      "release": null
+    },
+    {
+      "area": "delivery-evidence",
+      "repository": "safe-merge-gate",
+      "url": "https://github.com/vigilanty0x/safe-merge-gate",
+      "maturity": "prototype",
+      "headSha": "0b9f8054322a8fde647dd67f2070e9ce3c0ae52c",
+      "treeSha": "7c57c3b6d5c9492f7569a8c72ff4b1e477ee69ff",
+      "verification": "PASS",
+      "release": null
+    },
+    {
+      "area": "local-ai",
+      "repository": "local-ai-stack",
+      "url": "https://github.com/vigilanty0x/local-ai-stack",
+      "maturity": "prototype",
+      "headSha": "f7f18c5eb0025c6486158d830a26947c14c649eb",
+      "treeSha": "62b670fe9c8eeae3e293e1fe324179228961c086",
+      "verification": "PASS",
+      "release": null
+    },
+    {
+      "area": "dashboard",
+      "repository": "agent-dashboard",
+      "url": "https://github.com/vigilanty0x/agent-dashboard",
+      "maturity": "prototype",
+      "headSha": "d9d91250ef15b3cb3d589502cc991a3616d39a26",
+      "treeSha": "494dd87a79ef7e9cc9eb2cc7a05d509f16c82206",
+      "verification": "BLOCKED",
+      "blockedReason": "Dependency-free tests pass; locked dependencies are unavailable to the offline verifier.",
+      "release": null
+    }
+  ]
+}

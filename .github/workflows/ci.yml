@@ -1,0 +1,19 @@
+name: Profile evidence
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: node scripts/check-profile.mjs --root .
+      - run: node --test test/*.test.mjs
+
