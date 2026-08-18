@@ -4,6 +4,16 @@ I build public tools that make software and AI work easier to inspect, reproduce
 
 The portfolio is deliberately **evidence-first**. A green README is not a release. A project is not called stable until its release, installed-artifact smoke, compatibility contract, provenance, and rollback evidence agree.
 
+## Live public portfolio evidence
+
+[`docs/index.html`](docs/index.html) is now **generated**, not manually curated. Its program status, PR counts, consolidation load, stop reasons, and freshness come from a bounded extract of the read-only public-portfolio snapshot produced by `.github` workflow run `32163118044`.
+
+The source binding is recorded in [`data/public-portfolio-live.manifest.json`](data/public-portfolio-live.manifest.json): upstream snapshot SHA-256 `1d7fb8cb01232accecc8b26df356e8e263df506f56a54938144c790e252eef0f`, exact source head `178c80653eb4ccba32768b32497c60fafb6ec558`, artifact id `9334368066`, and registry expiry `2026-09-17T23:59:59Z`.
+
+The generator fails closed if the bounded source changes without its manifest, if the page drifts from the generated output, if the source stops being read-only, or if automatic mutation appears. The page also marks itself **STALE** in the browser after the registry TTL, and scheduled CI requires current evidence.
+
+Current bound source status: **STOPPED**. That is intentionally not rewritten to look healthier.
+
 ## Start here
 
 | Project | Problem it tackles | Current maturity | Evidence snapshot |
@@ -19,7 +29,7 @@ Machine-readable SHAs, evidence references, and residual limits live in [`PORTFO
 
 ## Portfolio architecture
 
-The governance decision is now merged in [`vigilanty0x/.github`](https://github.com/vigilanty0x/.github). It distinguishes two states on purpose:
+The governance decision is merged in [`vigilanty0x/.github`](https://github.com/vigilanty0x/.github). It distinguishes two states on purpose:
 
 - **18 transitional targets** remain the safe review registry while migrations are incomplete.
 - **16 final entities / 17 active repositories** are the prepared end state.
@@ -28,7 +38,7 @@ The final topology is **not activated by changing a number in a JSON file**. Eve
 
 The canonical portfolio presentation is split intentionally:
 
-- [`vigilanty0x/vigilanty0x`](https://github.com/vigilanty0x/vigilanty0x) — the human-facing profile and evidence snapshot;
+- [`vigilanty0x/vigilanty0x`](https://github.com/vigilanty0x/vigilanty0x) — the human-facing profile and generated evidence dashboard;
 - [`portfolio-kit`](https://github.com/vigilanty0x/portfolio-kit) — the reusable portfolio/catalogue product target;
 - [`.github`](https://github.com/vigilanty0x/.github) — governance, policy, state vocabulary, and reusable CI.
 

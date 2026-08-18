@@ -3,74 +3,147 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Evidence-first open-source tools for dependable AI and software workflows by vigilanty0x.">
-  <title>vigilanty0x — evidence-first tools</title>
+  <meta name="description" content="Evidence-first live public GitHub portfolio dashboard for vigilanty0x.">
+  <title>vigilanty0x — public portfolio evidence</title>
   <style>
     :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     * { box-sizing: border-box; }
     body { margin: 0; background: #071018; color: #f5f8fb; }
     a { color: inherit; }
-    main { width: min(74rem, calc(100% - 2rem)); margin: auto; padding: 4.5rem 0 5rem; }
-    .eyebrow { margin: 0 0 1rem; color: #9fb2c3; font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; }
-    h1 { max-width: 16ch; margin: 0; font-size: clamp(2.7rem, 8vw, 6.6rem); line-height: .94; letter-spacing: -.055em; }
-    .lede { max-width: 64ch; margin: 1.7rem 0 0; color: #c6d3dd; font-size: clamp(1.05rem, 2vw, 1.3rem); line-height: 1.65; }
-    .facts { display: flex; flex-wrap: wrap; gap: .65rem; margin: 2rem 0 0; padding: 0; list-style: none; }
-    .facts li { border: 1px solid #294252; border-radius: 999px; padding: .45rem .8rem; color: #cbd8e1; background: #0b1822; }
-    .section { margin-top: 4rem; }
-    .section h2 { margin: 0 0 .5rem; font-size: 1.5rem; }
-    .section > p { max-width: 70ch; color: #aebfcb; line-height: 1.65; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; margin-top: 1.4rem; }
-    article { min-height: 12rem; border: 1px solid #263c4b; border-radius: 1rem; padding: 1.3rem; background: #0b1822; }
-    article h3 { margin: 0 0 .7rem; font-size: 1.12rem; }
-    article p { margin: 0; color: #afc0cc; line-height: 1.55; }
-    article a { text-decoration-thickness: 1px; text-underline-offset: .2em; }
-    .tag { display: inline-block; margin-top: 1rem; color: #94a8b7; font-size: .78rem; }
-    .architecture { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; overflow: hidden; margin-top: 1.4rem; border: 1px solid #263c4b; border-radius: 1rem; background: #263c4b; }
-    .architecture div { padding: 1.3rem; background: #0b1822; }
-    .architecture strong { display: block; font-size: 2rem; letter-spacing: -.04em; }
-    .architecture span { color: #9fb2c3; }
-    footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid #263c4b; color: #8fa4b3; line-height: 1.6; }
-    @media (max-width: 680px) { main { padding-top: 3rem; } .architecture { grid-template-columns: 1fr; } }
+    main { width: min(76rem, calc(100% - 2rem)); margin: auto; padding: 4rem 0 5rem; }
+    .eyebrow { margin: 0 0 1rem; color: #9fb2c3; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { max-width: 16ch; margin: 0; font-size: clamp(2.8rem, 7vw, 6rem); line-height: .96; letter-spacing: -.055em; }
+    .lede { max-width: 68ch; color: #bdccd6; font-size: 1.12rem; line-height: 1.65; }
+    .status { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1.2rem; padding: .55rem .9rem; border: 1px solid #4b5963; border-radius: 999px; font-weight: 800; letter-spacing: .08em; }
+    .status.stopped { border-color: #7d5149; background: #201412; }
+    .freshness { display: inline-flex; margin-left: .6rem; padding: .55rem .9rem; border: 1px solid #2b4657; border-radius: 999px; color: #c7d5df; }
+    .freshness[data-state="STALE"] { border-color: #866940; background: #211b12; color: #f0d7a4; }
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .8rem; margin-top: 2rem; }
+    .metric { padding: 1rem; border: 1px solid #263c4b; border-radius: .9rem; background: #0b1822; }
+    .metric span { display: block; color: #9fb2c3; font-size: .8rem; }
+    .metric strong { display: block; margin-top: .25rem; font-size: 1.6rem; letter-spacing: -.03em; }
+    section { margin-top: 3.2rem; }
+    section h2 { margin-bottom: .7rem; }
+    .reason-list, .categories, .targets { list-style: none; padding: 0; margin: 1rem 0 0; }
+    .reason-list li { display: grid; grid-template-columns: minmax(12rem, .4fr) 1fr; gap: 1rem; padding: .9rem 0; border-top: 1px solid #233845; }
+    .reason-list span { color: #adbdc8; }
+    .categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: .7rem; }
+    .categories li { display: flex; justify-content: space-between; padding: .8rem 1rem; border: 1px solid #263c4b; border-radius: .8rem; background: #0b1822; }
+    .targets { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .targets li { padding: .45rem .7rem; border: 1px solid #294252; border-radius: 999px; color: #bdccd6; }
+    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: .8rem; }
+    article { padding: 1rem; border: 1px solid #263c4b; border-radius: .9rem; background: #0b1822; }
+    article h3, article p { margin: 0; }
+    article p { margin-top: .5rem; color: #9fb2c3; }
+    .source { padding: 1rem; border: 1px solid #263c4b; border-radius: .9rem; background: #09151e; color: #aebfcb; line-height: 1.7; overflow-wrap: anywhere; }
+    .warning { color: #f0d7a4; }
+    footer { margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid #263c4b; color: #8fa4b3; line-height: 1.6; }
+    @media (max-width: 650px) { .reason-list li { grid-template-columns: 1fr; gap: .3rem; } .freshness { margin: .6rem 0 0; } }
   </style>
 </head>
-<body>
+<body data-expires-at="2026-09-17T23:59:59Z">
+  <!-- generated: scripts/generate-dashboard.mjs -->
+  <!-- bounded-source-sha256:ba83a258d4790bcd084a4121c5ea93dcddd90d12e72910491d797ff0075f69c1 upstream-snapshot-sha256:1d7fb8cb01232accecc8b26df356e8e263df506f56a54938144c790e252eef0f -->
+  <!-- source-head:178c80653eb4ccba32768b32497c60fafb6ec558 run:32163118044 artifact:9334368066 -->
   <main>
-    <p class="eyebrow">vigilanty0x / public portfolio</p>
+    <p class="eyebrow">vigilanty0x / generated public portfolio evidence</p>
     <h1>Evidence before confidence.</h1>
-    <p class="lede">Inspectable open-source tools for repository diagnostics, evidence gates, bounded learning, AI provenance, model routing, and local AI. Claims stay tied to exact code and explicit limits.</p>
-    <ul class="facts" aria-label="Portfolio principles">
-      <li>Fail closed</li><li>Exact-SHA evidence</li><li>Synthetic public fixtures</li><li>Human-gated transitions</li>
-    </ul>
+    <p class="lede">This page is generated from a read-only GitHub portfolio snapshot. The visible program status and metrics are not hand-edited.</p>
+    <div class="status stopped" id="source-status">STOPPED</div>
+    <div class="freshness" id="freshness" data-state="CURRENT">CURRENT UNTIL 2026-09-17T23:59:59Z</div>
 
-    <section class="section" aria-labelledby="projects">
-      <h2 id="projects">Six projects to inspect first</h2>
-      <p>These are canonical final identities, not transitional source repositories. All remain conservatively labelled prototype on this profile.</p>
-      <div class="grid">
-        <article><h3><a href="https://github.com/vigilanty0x/apprentice-ai">Apprentice AI</a></h3><p>Local-first, preview-only procedure learning from permitted structured events.</p><span class="tag">bounded learning · prototype</span></article>
-        <article><h3><a href="https://github.com/vigilanty0x/repo-doctor">Repo Doctor</a></h3><p>Offline repository diagnostics with deterministic findings, release gates, and bounded evidence.</p><span class="tag">diagnostics · prototype</span></article>
-        <article><h3><a href="https://github.com/vigilanty0x/proofgate">ProofGate</a></h3><p>Evidence-gated completion: missing or invalid proof cannot silently become DONE.</p><span class="tag">delivery evidence · prototype</span></article>
-        <article><h3><a href="https://github.com/vigilanty0x/ai-assistance-manifest">AI Assistance Manifest</a></h3><p>Machine-readable disclosure of AI assistance, human control, boundaries, and verification.</p><span class="tag">provenance · prototype</span></article>
-        <article><h3><a href="https://github.com/vigilanty0x/model-router">Model Router</a></h3><p>Task routing from declared capabilities, constraints, and state rather than opaque preference.</p><span class="tag">routing · prototype</span></article>
-        <article><h3><a href="https://github.com/vigilanty0x/local-ai-stack">Local AI Stack</a></h3><p>Inspect and coordinate declared local-model endpoints while keeping health and correctness separate.</p><span class="tag">local AI · prototype</span></article>
+    <div class="metrics">
+          <div class="metric"><span>Public repos</span><strong>112/112</strong></div>
+          <div class="metric"><span>Open PRs</span><strong>72</strong></div>
+          <div class="metric"><span>Drafts</span><strong>64</strong></div>
+          <div class="metric"><span>Over SLA</span><strong>6</strong></div>
+          <div class="metric"><span>Failing CI</span><strong>0</strong></div>
+          <div class="metric"><span>Pending CI</span><strong>2</strong></div>
+          <div class="metric"><span>Merge conflicts</span><strong>0</strong></div>
+          <div class="metric"><span>Active consolidations</span><strong>13/2</strong></div>
+    </div>
+
+    <section aria-labelledby="stop-reasons">
+      <h2 id="stop-reasons">Stop-the-line reasons</h2>
+      <ul class="reason-list">
+            <li><strong>OPEN_PR_LIMIT</strong><span>72 open pull requests exceed the limit of 50.</span></li>
+            <li><strong>CONSOLIDATION_CAPACITY</strong><span>13 consolidation targets exceed the review capacity of 2.</span></li>
+            <li><strong>PR_SLA</strong><span>6 pull requests exceed their category SLA.</span></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="categories">
+      <h2 id="categories">Open PR categories</h2>
+      <ul class="categories">
+            <li><span>SECURITY</span><strong>7</strong></li>
+            <li><span>CONSOLIDATION</span><strong>13</strong></li>
+            <li><span>RELEASE</span><strong>5</strong></li>
+            <li><span>DEPENDABOT</span><strong>0</strong></li>
+            <li><span>SUPERSEDED_CANDIDATE</span><strong>41</strong></li>
+            <li><span>REVIEW</span><strong>6</strong></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="consolidations">
+      <h2 id="consolidations">Active consolidation targets</h2>
+      <p class="lede">Policy capacity is 2. The source snapshot records 13 active targets.</p>
+      <ul class="targets">
+            <li>agent-dashboard</li>
+            <li>agent-handoff</li>
+            <li>agent-worktrees</li>
+            <li>agentops</li>
+            <li>ai-assistance-manifest</li>
+            <li>ai-software-factory</li>
+            <li>community-governance</li>
+            <li>contract-lab</li>
+            <li>local-ai-stack</li>
+            <li>model-router</li>
+            <li>rag-lab</li>
+            <li>repo-doctor</li>
+            <li>shipcheck</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="portfolio">
+      <h2 id="portfolio">Prepared final portfolio</h2>
+      <p class="lede">16 final entities / 17 active repositories are prepared. Activation remains human-gated; this live dashboard does not convert that prepared topology into a completed migration.</p>
+      <div class="projects">
+          <article><h3><a href="https://github.com/vigilanty0x/apprentice-ai">apprentice-ai</a></h3><p>prototype · evidence PASS</p></article>
+          <article><h3><a href="https://github.com/vigilanty0x/repo-doctor">repo-doctor</a></h3><p>prototype · evidence PASS</p></article>
+          <article><h3><a href="https://github.com/vigilanty0x/proofgate">proofgate</a></h3><p>prototype · evidence PASS</p></article>
+          <article><h3><a href="https://github.com/vigilanty0x/ai-assistance-manifest">ai-assistance-manifest</a></h3><p>prototype · evidence PASS</p></article>
+          <article><h3><a href="https://github.com/vigilanty0x/model-router">model-router</a></h3><p>prototype · evidence PASS</p></article>
+          <article><h3><a href="https://github.com/vigilanty0x/local-ai-stack">local-ai-stack</a></h3><p>prototype · evidence PASS</p></article>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="architecture">
-      <h2 id="architecture">Prepared portfolio architecture</h2>
-      <p>The merged governance decision keeps an 18-target transitional review registry while preparing a smaller final topology. Activation remains gated by migration evidence and explicit human approval.</p>
-      <div class="architecture">
-        <div><strong>18</strong><span>transitional targets</span></div>
-        <div><strong>16</strong><span>final entities</span></div>
-        <div><strong>17</strong><span>active repositories in the prepared final state</span></div>
+    <section aria-labelledby="source">
+      <h2 id="source">Source evidence</h2>
+      <div class="source">
+        <strong>Mode:</strong> READ_ONLY<br>
+        <strong>Generated:</strong> 2026-08-18T16:58:26.764Z<br>
+        <strong>Expires:</strong> 2026-09-17T23:59:59Z<br>
+        <strong>Source head:</strong> <code>178c80653eb4ccba32768b32497c60fafb6ec558</code><br>
+        <strong>Workflow run:</strong> 32163118044<br>
+        <strong>Artifact:</strong> 9334368066 · <code>sha256:ddde953865e995925f96fab93f5d1475e0ee31fd9fb6f83a17649946ca18c8da</code><br>
+        <strong>Upstream snapshot SHA-256:</strong> <code>1d7fb8cb01232accecc8b26df356e8e263df506f56a54938144c790e252eef0f</code><br>
+        <strong>Bounded source SHA-256:</strong> <code>ba83a258d4790bcd084a4121c5ea93dcddd90d12e72910491d797ff0075f69c1</code>
       </div>
+      <p class="warning" id="stale-warning" hidden>This evidence is past its registry TTL. Treat the page as historical until a newer verified snapshot is committed.</p>
     </section>
 
-    <section class="section" aria-labelledby="proof">
-      <h2 id="proof">Read the evidence, not the marketing</h2>
-      <p><a href="https://github.com/vigilanty0x/vigilanty0x/blob/main/PORTFOLIO.json">PORTFOLIO.json</a> binds the featured projects to exact main and tree SHAs plus evidence references. <a href="https://github.com/vigilanty0x/.github">.github</a> holds the public governance contract. <a href="https://github.com/vigilanty0x/portfolio-kit">Portfolio Kit</a> is the reusable catalogue target.</p>
-    </section>
-
-    <footer>No hosted-service SLA, adoption claim, or production-readiness claim is implied by this page. Public examples are synthetic and transitional repositories are not promoted as final products.</footer>
+    <footer>Generated from bounded public evidence. No hosted-service SLA, source archive authorization, release authorization, or automatic repository mutation is implied.</footer>
   </main>
+  <script>
+    (() => {
+      const expiresAt = document.body.dataset.expiresAt;
+      const stale = Number.isFinite(Date.parse(expiresAt)) && Date.now() > Date.parse(expiresAt);
+      if (!stale) return;
+      const freshness = document.getElementById("freshness");
+      freshness.dataset.state = "STALE";
+      freshness.textContent = "STALE — EXPIRED " + expiresAt;
+      document.getElementById("stale-warning").hidden = false;
+    })();
+  </script>
 </body>
 </html>

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": ".github",
+    "workflowRunId": 32163118044,
+    "headSha": "178c80653eb4ccba32768b32497c60fafb6ec558",
+    "artifactId": 9334368066,
+    "artifactDigest": "sha256:ddde953865e995925f96fab93f5d1475e0ee31fd9fb6f83a17649946ca18c8da",
+    "upstreamSnapshotSha256": "1d7fb8cb01232accecc8b26df356e8e263df506f56a54938144c790e252eef0f"
+  },
+  "boundedSource": {
+    "path": "data/public-portfolio-live.bound.json",
+    "sha256": "ba83a258d4790bcd084a4121c5ea93dcddd90d12e72910491d797ff0075f69c1",
+    "generatedAt": "2026-08-18T16:58:26.764Z",
+    "expiresAt": "2026-09-17T23:59:59Z",
+    "status": "STOPPED"
+  },
+  "policy": {
+    "readOnlyRequired": true,
+    "automaticMutationRequiredFalse": true,
+    "expectedPublicRepositoryCount": 112
+  }
+}
