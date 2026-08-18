@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "upstreamSnapshotSha256": "1d7fb8cb01232accecc8b26df356e8e263df506f56a54938144c790e252eef0f",
+  "mode": "READ_ONLY",
+  "automaticMutation": false,
+  "status": "STOPPED",
+  "generatedAt": "2026-08-18T16:58:26.764Z",
+  "registry": {
+    "owner": "vigilanty0x",
+    "expectedTargetCount": 18,
+    "expectedSourceRepositoryCount": 100,
+    "expectedPublicRepositoryCount": 112,
+    "observedAt": "2026-08-17T23:59:59Z",
+    "expiresAt": "2026-09-17T23:59:59Z"
+  },
+  "policy": {
+    "freezeActive": true,
+    "maxOpenPullRequests": 50,
+    "maxActiveConsolidations": 2,
+    "maxDraftAgeDays": 14,
+    "autoClose": false,
+    "autoMerge": false
+  },
+  "summary": {
+    "observedAt": "2026-08-18T16:58:26.764Z",
+    "registryExpired": false,
+    "expectedPublicRepositoryCount": 112,
+    "publicRepositoryCount": 112,
+    "openPullRequestCount": 72,
+    "draftPullRequestCount": 64,
+    "overSlaCount": 6,
+    "failingCiCount": 0,
+    "pendingCiCount": 2,
+    "mergeConflictCount": 0,
+    "activeConsolidationTargetCount": 13,
+    "activeConsolidationTargets": [
+      "agent-dashboard",
+      "agent-handoff",
+      "agent-worktrees",
+      "agentops",
+      "ai-assistance-manifest",
+      "ai-software-factory",
+      "community-governance",
+      "contract-lab",
+      "local-ai-stack",
+      "model-router",
+      "rag-lab",
+      "repo-doctor",
+      "shipcheck"
+    ],
+    "categoryCounts": {
+      "SECURITY": 7,
+      "CONSOLIDATION": 13,
+      "RELEASE": 5,
+      "DEPENDABOT": 0,
+      "SUPERSEDED_CANDIDATE": 41,
+      "REVIEW": 6
+    }
+  },
+  "stopReasons": [
+    {
+      "code": "OPEN_PR_LIMIT",
+      "message": "72 open pull requests exceed the limit of 50."
+    },
+    {
+      "code": "CONSOLIDATION_CAPACITY",
+      "message": "13 consolidation targets exceed the review capacity of 2."
+    },
+    {
+      "code": "PR_SLA",
+      "message": "6 pull requests exceed their category SLA."
+    }
+  ]
+}
