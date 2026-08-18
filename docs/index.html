@@ -3,33 +3,74 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Evidence-first public tools by vigilanty0x.">
-  <title>Vigilanty0x — evidence-first tools</title>
+  <meta name="description" content="Evidence-first open-source tools for dependable AI and software workflows by vigilanty0x.">
+  <title>vigilanty0x — evidence-first tools</title>
   <style>
-    :root { color-scheme: light dark; font-family: ui-sans-serif, system-ui, sans-serif; }
-    body { margin: 0; background: #07141f; color: #eef8ff; }
-    main { width: min(72rem, calc(100% - 2rem)); margin: auto; padding: 4rem 0; }
-    h1 { max-width: 18ch; font-size: clamp(2.3rem, 7vw, 5.5rem); line-height: .95; }
-    p { max-width: 70ch; line-height: 1.65; color: #c9dce8; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; margin-top: 2rem; }
-    article { border: 1px solid #315267; border-radius: .8rem; padding: 1.2rem; background: #0d2231; }
-    a { color: #67dcff; text-underline-offset: .2em; }
-    .status { display: inline-block; border: 1px solid #9ab5c6; border-radius: 999px; padding: .2rem .55rem; font-size: .8rem; }
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #071018; color: #f5f8fb; }
+    a { color: inherit; }
+    main { width: min(74rem, calc(100% - 2rem)); margin: auto; padding: 4.5rem 0 5rem; }
+    .eyebrow { margin: 0 0 1rem; color: #9fb2c3; font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { max-width: 16ch; margin: 0; font-size: clamp(2.7rem, 8vw, 6.6rem); line-height: .94; letter-spacing: -.055em; }
+    .lede { max-width: 64ch; margin: 1.7rem 0 0; color: #c6d3dd; font-size: clamp(1.05rem, 2vw, 1.3rem); line-height: 1.65; }
+    .facts { display: flex; flex-wrap: wrap; gap: .65rem; margin: 2rem 0 0; padding: 0; list-style: none; }
+    .facts li { border: 1px solid #294252; border-radius: 999px; padding: .45rem .8rem; color: #cbd8e1; background: #0b1822; }
+    .section { margin-top: 4rem; }
+    .section h2 { margin: 0 0 .5rem; font-size: 1.5rem; }
+    .section > p { max-width: 70ch; color: #aebfcb; line-height: 1.65; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; margin-top: 1.4rem; }
+    article { min-height: 12rem; border: 1px solid #263c4b; border-radius: 1rem; padding: 1.3rem; background: #0b1822; }
+    article h3 { margin: 0 0 .7rem; font-size: 1.12rem; }
+    article p { margin: 0; color: #afc0cc; line-height: 1.55; }
+    article a { text-decoration-thickness: 1px; text-underline-offset: .2em; }
+    .tag { display: inline-block; margin-top: 1rem; color: #94a8b7; font-size: .78rem; }
+    .architecture { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; overflow: hidden; margin-top: 1.4rem; border: 1px solid #263c4b; border-radius: 1rem; background: #263c4b; }
+    .architecture div { padding: 1.3rem; background: #0b1822; }
+    .architecture strong { display: block; font-size: 2rem; letter-spacing: -.04em; }
+    .architecture span { color: #9fb2c3; }
+    footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid #263c4b; color: #8fa4b3; line-height: 1.6; }
+    @media (max-width: 680px) { main { padding-top: 3rem; } .architecture { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <main>
-    <p class="status">All highlighted projects: prototype</p>
+    <p class="eyebrow">vigilanty0x / public portfolio</p>
     <h1>Evidence before confidence.</h1>
-    <p>Inspectable public tools for provenance, routing, diagnostics, delivery evidence, local AI, and agent operations. Claims stay bounded to reproducible behavior.</p>
-    <section class="grid" aria-label="Highlighted projects">
-      <article><h2><a href="https://github.com/vigilanty0x/ai-assistance-manifest">AI assistance manifest</a></h2><p>Bounded provenance manifests.</p></article>
-      <article><h2><a href="https://github.com/vigilanty0x/model-router">Model router</a></h2><p>Capability-aware task routing.</p></article>
-      <article><h2><a href="https://github.com/vigilanty0x/repo-doctor-ai">Repository doctor</a></h2><p>Evidence-oriented repository diagnostics.</p></article>
-      <article><h2><a href="https://github.com/vigilanty0x/safe-merge-gate">Merge evidence gate</a></h2><p>Explicit merge evidence states.</p></article>
-      <article><h2><a href="https://github.com/vigilanty0x/local-ai-stack">Local AI stack</a></h2><p>Declared local-model endpoint inspection.</p></article>
-      <article><h2><a href="https://github.com/vigilanty0x/agent-dashboard">Agent dashboard</a></h2><p>Bounded run and evidence views.</p></article>
+    <p class="lede">Inspectable open-source tools for repository diagnostics, evidence gates, bounded learning, AI provenance, model routing, and local AI. Claims stay tied to exact code and explicit limits.</p>
+    <ul class="facts" aria-label="Portfolio principles">
+      <li>Fail closed</li><li>Exact-SHA evidence</li><li>Synthetic public fixtures</li><li>Human-gated transitions</li>
+    </ul>
+
+    <section class="section" aria-labelledby="projects">
+      <h2 id="projects">Six projects to inspect first</h2>
+      <p>These are canonical final identities, not transitional source repositories. All remain conservatively labelled prototype on this profile.</p>
+      <div class="grid">
+        <article><h3><a href="https://github.com/vigilanty0x/apprentice-ai">Apprentice AI</a></h3><p>Local-first, preview-only procedure learning from permitted structured events.</p><span class="tag">bounded learning · prototype</span></article>
+        <article><h3><a href="https://github.com/vigilanty0x/repo-doctor">Repo Doctor</a></h3><p>Offline repository diagnostics with deterministic findings, release gates, and bounded evidence.</p><span class="tag">diagnostics · prototype</span></article>
+        <article><h3><a href="https://github.com/vigilanty0x/proofgate">ProofGate</a></h3><p>Evidence-gated completion: missing or invalid proof cannot silently become DONE.</p><span class="tag">delivery evidence · prototype</span></article>
+        <article><h3><a href="https://github.com/vigilanty0x/ai-assistance-manifest">AI Assistance Manifest</a></h3><p>Machine-readable disclosure of AI assistance, human control, boundaries, and verification.</p><span class="tag">provenance · prototype</span></article>
+        <article><h3><a href="https://github.com/vigilanty0x/model-router">Model Router</a></h3><p>Task routing from declared capabilities, constraints, and state rather than opaque preference.</p><span class="tag">routing · prototype</span></article>
+        <article><h3><a href="https://github.com/vigilanty0x/local-ai-stack">Local AI Stack</a></h3><p>Inspect and coordinate declared local-model endpoints while keeping health and correctness separate.</p><span class="tag">local AI · prototype</span></article>
+      </div>
     </section>
+
+    <section class="section" aria-labelledby="architecture">
+      <h2 id="architecture">Prepared portfolio architecture</h2>
+      <p>The merged governance decision keeps an 18-target transitional review registry while preparing a smaller final topology. Activation remains gated by migration evidence and explicit human approval.</p>
+      <div class="architecture">
+        <div><strong>18</strong><span>transitional targets</span></div>
+        <div><strong>16</strong><span>final entities</span></div>
+        <div><strong>17</strong><span>active repositories in the prepared final state</span></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="proof">
+      <h2 id="proof">Read the evidence, not the marketing</h2>
+      <p><a href="https://github.com/vigilanty0x/vigilanty0x/blob/main/PORTFOLIO.json">PORTFOLIO.json</a> binds the featured projects to exact main and tree SHAs plus evidence references. <a href="https://github.com/vigilanty0x/.github">.github</a> holds the public governance contract. <a href="https://github.com/vigilanty0x/portfolio-kit">Portfolio Kit</a> is the reusable catalogue target.</p>
+    </section>
+
+    <footer>No hosted-service SLA, adoption claim, or production-readiness claim is implied by this page. Public examples are synthetic and transitional repositories are not promoted as final products.</footer>
   </main>
 </body>
 </html>
