@@ -1,57 +1,67 @@
 # Evidence-first tools for dependable AI and software workflows
 
-I build small, inspectable open-source tools around provenance, model routing,
-repository diagnostics, delivery evidence, local AI, and agent operations.
+I build public tools that make software and AI work easier to inspect, reproduce, and challenge: repository diagnostics, evidence gates, model routing, local AI, provenance, and bounded learning systems.
 
-The portfolio is being consolidated from many focused prototypes into a smaller
-set of maintained products. No project below is presented as stable until it has
-a tagged release, an install-and-smoke proof, a documented support window, and a
-reproducible artifact chain.
+The portfolio is deliberately **evidence-first**. A green README is not a release. A project is not called stable until its release, installed-artifact smoke, compatibility contract, provenance, and rollback evidence agree.
 
-## Six projects to inspect first
+## Start here
 
-| Area | Project | What is implemented | Maturity | Verification |
-|---|---|---|---|---|
-| Provenance | [ai-assistance-manifest](https://github.com/vigilanty0x/ai-assistance-manifest) | Validate and render bounded AI-assistance manifests | Prototype | Offline source checks pass |
-| Routing | [model-router](https://github.com/vigilanty0x/model-router) | Route tasks from declared capabilities, constraints, and state | Prototype | Offline source checks pass |
-| Diagnostics | [repo-doctor-ai](https://github.com/vigilanty0x/repo-doctor-ai) | Inspect repository evidence and produce bounded findings | Prototype; consolidation planned | Tests pass; artifact build is blocked in the offline verifier |
-| Delivery evidence | [safe-merge-gate](https://github.com/vigilanty0x/safe-merge-gate) | Evaluate merge evidence with explicit failure states | Prototype; consolidation planned | Offline source checks pass |
-| Local AI | [local-ai-stack](https://github.com/vigilanty0x/local-ai-stack) | Inspect and coordinate declared local-model endpoints | Prototype | Offline source checks pass |
-| Dashboard | [agent-dashboard](https://github.com/vigilanty0x/agent-dashboard) | Render bounded agent-run snapshots and evidence views | Prototype | Dependency-free checks pass; full locked build is not yet verified offline |
+| Project | Problem it tackles | Current maturity | Evidence snapshot |
+|---|---|---|---|
+| [Apprentice AI](https://github.com/vigilanty0x/apprentice-ai) | Learn bounded procedures from permitted events while remaining local-first and preview-only | Prototype | 88 source + installed-wheel tests; hosted Linux/Windows release checks recorded on the merged 0.1.0 change |
+| [Repo Doctor](https://github.com/vigilanty0x/repo-doctor) | Audit repositories without executing their code and return reproducible findings | Prototype | 115 tests plus source/wheel/sdist release gate and Linux/Windows matrix recorded on the merged 0.3.0 change |
+| [ProofGate](https://github.com/vigilanty0x/proofgate) | Refuse `DONE` when declared evidence is missing, invalid, stale, or contradictory | Prototype | 87 tests from source, installed wheel and installed sdist on the merged evidence-orchestration change |
+| [AI Assistance Manifest](https://github.com/vigilanty0x/ai-assistance-manifest) | Describe AI assistance, human control, and verification in a bounded machine-readable format | Prototype | Exact main SHA remains the previously verified profile snapshot |
+| [Model Router](https://github.com/vigilanty0x/model-router) | Route tasks from declared capabilities and constraints instead of opaque preference | Prototype | Exact main SHA remains the previously verified profile snapshot |
+| [Local AI Stack](https://github.com/vigilanty0x/local-ai-stack) | Inspect and coordinate declared local-model endpoints without pretending health equals correctness | Prototype | Exact main SHA remains the previously verified profile snapshot |
 
-The exact tested commits and residual verification gaps are recorded in
-[`PORTFOLIO.json`](PORTFOLIO.json).
+Machine-readable SHAs, evidence references, and residual limits live in [`PORTFOLIO.json`](PORTFOLIO.json).
 
-## Maturity language
+## Portfolio architecture
 
-- **Prototype**: the behavior is inspectable and tested at source, but no support
-  or compatibility promise is made.
-- **Preview**: a tagged prerelease, clean-install proof, migration notes, and
-  limited support window exist.
-- **Stable**: reproducible artifacts, provenance, a supported compatibility
-  contract, release runbook, and rollback proof exist.
+The governance decision is now merged in [`vigilanty0x/.github`](https://github.com/vigilanty0x/.github). It distinguishes two states on purpose:
 
-At this baseline, all six highlighted repositories remain prototypes.
+- **18 transitional targets** remain the safe review registry while migrations are incomplete.
+- **16 final entities / 17 active repositories** are the prepared end state.
 
-## What this portfolio does not claim
+The final topology is **not activated by changing a number in a JSON file**. Every absorption still requires current migration evidence, compatibility, consumer inventory, redirect/transition handling, rollback, and explicit human approval.
 
-- No hosted service, uptime promise, or support SLA.
-- No claim that multiple model outputs create truth or safety by themselves.
-- No production-readiness claim based only on a README, a workflow, or test-file
-  presence.
-- No adoption or performance claim without a dated, reproducible measurement.
+The canonical portfolio presentation is split intentionally:
+
+- [`vigilanty0x/vigilanty0x`](https://github.com/vigilanty0x/vigilanty0x) — the human-facing profile and evidence snapshot;
+- [`portfolio-kit`](https://github.com/vigilanty0x/portfolio-kit) — the reusable portfolio/catalogue product target;
+- [`.github`](https://github.com/vigilanty0x/.github) — governance, policy, state vocabulary, and reusable CI.
+
+## Maturity vocabulary
+
+- **Prototype** — behavior is inspectable and tested, but no compatibility or support promise is implied.
+- **Preview** — a tagged prerelease, clean-install proof, migration notes, and bounded support window exist.
+- **Stable** — reproducible artifacts, provenance, compatibility, release runbook, rollback proof, and post-publication verification all agree.
+
+The six projects above are intentionally shown as **Prototype** here even when they have versioned release work. The profile does not promote maturity from a version string alone.
+
+## What I optimize for
+
+- fail-closed behavior instead of fake green states;
+- deterministic outputs and stable error semantics;
+- negative tests and counter-proofs, not only happy paths;
+- clean installation outside the source checkout;
+- source SHA, tree SHA, artifacts, and release claims that can be tied together;
+- local-first or no-network defaults where that meaningfully reduces risk;
+- explicit boundaries around AI assistance and human approval.
+
+## What this profile does not claim
+
+- No hosted-service uptime or support SLA is implied.
+- No model vote or multi-agent consensus is treated as truth by itself.
+- No project is called production-ready because a workflow file exists or a test count is large.
+- No adoption, benchmark, latency, or quality claim is made without a dated reproducible measurement.
+- Transitional repositories are not presented as final products merely because they still exist publicly.
 
 ## Public-data boundary
 
-Examples and fixtures are synthetic. Credentials, customer identifiers,
-non-public prompts, service coordinates, and production-derived datasets do not
-belong in these repositories. The profile gate detects an excluded marker by a
-one-way digest without logging the matched value.
+Public examples and fixtures are synthetic. Credentials, customer identifiers, non-public prompts, service coordinates, and production-derived datasets do not belong in this portfolio. The repository gate scans the public tree without printing the excluded token it is designed to detect.
 
-## Current consolidation direction
+## Contributing
 
-The active rehearsal reduces the audited portfolio to 18 product targets plus
-this profile entry point. Source repositories will not be archived until target
-releases, compatibility, redirections, consumer checks, rollback, and human
-approval are all proven.
-
+Choose a project above, reproduce the smallest useful behavior, and open an issue or pull request with the command, expected result, actual result, and a synthetic fixture when possible. Security reports should follow the repository security policy rather than a public issue.

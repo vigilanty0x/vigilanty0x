@@ -8,6 +8,14 @@ const FORBIDDEN_TOKEN_DIGESTS = new Set(["003cc88d6e2eb5d4e5a02df093ee97f3a638d8
 const REQUIRED = ["README.md", "PORTFOLIO.json", "LICENSE", "CONTRIBUTING.md", "SECURITY.md"];
 const ALLOWED_MATURITY = new Set(["prototype", "preview", "stable"]);
 const ALLOWED_VERIFICATION = new Set(["PASS", "BLOCKED", "FAIL"]);
+const TRANSITIONAL_FEATURED = new Set([
+  "repo-doctor-ai",
+  "safe-merge-gate",
+  "shipcheck-release-gate",
+  "agent-dashboard",
+  "agent-handoff",
+  "agent-worktrees"
+]);
 const SKIP = new Set([".git", "node_modules", "dist", "coverage"]);
 const digest = (value) => createHash("sha256").update(value.toUpperCase()).digest("hex");
 
@@ -24,25 +32,55 @@ async function walk(root, directory = root) {
 
 export function validatePortfolio(portfolio) {
   const findings = [];
-  if (portfolio?.schemaVersion !== 1) findings.push({ rule: "schema-version" });
+  if (portfolio?.schemaVersion !== 2) findings.push({ rule: "schema-version" });
+
+  const architecture = portfolio?.architecture;
+  if (architecture?.state !== "PREPARED_FINAL_TOPOLOGY") findings.push({ rule: "architecture-state" });
+  if (architecture?.transitionalTargetCount !== 18) findings.push({ rule: "transitional-target-count" });
+  if (architecture?.finalEntityCount !== 16) findings.push({ rule: "final-entity-count" });
+  if (architecture?.activeRepositoryCount !== 17) findings.push({ rule: "active-repository-count" });
+  if (architecture?.governanceRepository !== ".github") findings.push({ rule: "governance-repository" });
+  if (!/^[0-9a-f]{40}$/.test(architecture?.governanceCommit ?? "")) findings.push({ rule: "governance-sha" });
+  if (architecture?.activationRequiresHumanApproval !== true) findings.push({ rule: "human-activation-gate" });
+
   if (!Array.isArray(portfolio?.featured) || portfolio.featured.length !== 6) {
     findings.push({ rule: "featured-count" });
     return findings;
   }
+
   const names = new Set();
   for (const [index, project] of portfolio.featured.entries()) {
     const path = `PORTFOLIO.json#/featured/${index}`;
     if (!/^[a-z0-9][a-z0-9-]+$/.test(project.repository ?? "")) findings.push({ rule: "repository-name", path });
     if (names.has(project.repository)) findings.push({ rule: "duplicate-repository", path });
     names.add(project.repository);
+    if (TRANSITIONAL_FEATURED.has(project.repository)) findings.push({ rule: "transitional-featured-identity", path });
+    if (project.canonical !== true) findings.push({ rule: "noncanonical-featured-identity", path });
     if (project.url !== `https://github.com/vigilanty0x/${project.repository}`) findings.push({ rule: "repository-url", path });
     if (!ALLOWED_MATURITY.has(project.maturity)) findings.push({ rule: "maturity", path });
     if (!ALLOWED_VERIFICATION.has(project.verification)) findings.push({ rule: "verification", path });
     if (!/^[0-9a-f]{40}$/.test(project.headSha ?? "") || !/^[0-9a-f]{40}$/.test(project.treeSha ?? "")) findings.push({ rule: "git-sha", path });
+    if (!project.evidenceReference || typeof project.evidenceReference !== "string") findings.push({ rule: "evidence-reference", path });
     if (project.verification === "BLOCKED" && !project.blockedReason) findings.push({ rule: "blocked-reason", path });
     if (project.maturity === "stable" && (!project.release?.tag || !/^[0-9a-f]{64}$/.test(project.release?.artifactSha256 ?? ""))) {
       findings.push({ rule: "stable-without-release-proof", path });
     }
+  }
+  return findings;
+}
+
+export function validateWorkflowText(file, content) {
+  const findings = [];
+  if (!/^permissions\s*:/m.test(content)) findings.push({ rule: "workflow-permissions", path: file });
+  for (const [index, line] of content.split(/\r?\n/).entries()) {
+    const runner = /^\s*runs-on:\s*([^\s#]+)/.exec(line)?.[1];
+    if (runner && /^(?:ubuntu|windows|macos)-latest$/i.test(runner)) {
+      findings.push({ rule: "mutable-runner", path: file, line: index + 1 });
+    }
+    const use = /^\s*(?:-\s*)?uses:\s*([^\s#]+)/.exec(line)?.[1];
+    if (!use || use.startsWith("./") || /\$\{\{/.test(use)) continue;
+    const reference = use.slice(use.lastIndexOf("@") + 1);
+    if (!/^[0-9a-f]{40}$/i.test(reference)) findings.push({ rule: "mutable-action", path: file, line: index + 1 });
   }
   return findings;
 }
@@ -65,15 +103,7 @@ export async function check(rootPath) {
     for (const match of content.matchAll(/[A-Za-z0-9_-]{3,}/g)) {
       if (FORBIDDEN_TOKEN_DIGESTS.has(digest(match[0]))) findings.push({ rule: "public-boundary", path: file, line: content.slice(0, match.index).split(/\r?\n/).length });
     }
-    if (/^\.github\/workflows\/.*\.ya?ml$/i.test(file)) {
-      if (!/^permissions\s*:/m.test(content)) findings.push({ rule: "workflow-permissions", path: file });
-      for (const [index, line] of content.split(/\r?\n/).entries()) {
-        const use = /^\s*(?:-\s*)?uses:\s*([^\s#]+)/.exec(line)?.[1];
-        if (!use || use.startsWith("./") || /\$\{\{/.test(use)) continue;
-        const reference = use.slice(use.lastIndexOf("@") + 1);
-        if (!/^[0-9a-f]{40}$/i.test(reference)) findings.push({ rule: "mutable-action", path: file, line: index + 1 });
-      }
-    }
+    if (/^\.github\/workflows\/.*\.ya?ml$/i.test(file)) findings.push(...validateWorkflowText(file, content));
   }
   findings.sort((a, b) => (a.path ?? "").localeCompare(b.path ?? "") || (a.line ?? 0) - (b.line ?? 0) || a.rule.localeCompare(b.rule));
   return { status: findings.length ? "FAIL" : "PASS", findingCount: findings.length, findings, valuesIncluded: false };
