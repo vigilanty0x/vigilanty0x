@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "owner": "vigilanty0x",
+  "issueGate": 4,
+  "profile": {
+    "bio": "Evidence-first tools for dependable AI and software workflows.",
+    "website": "https://vigilanty0x.github.io/vigilanty0x/"
+  },
+  "pages": {
+    "repository": "vigilanty0x",
+    "buildType": "workflow",
+    "expectedUrl": "https://vigilanty0x.github.io/vigilanty0x/"
+  },
+  "pins": [
+    "apprentice-ai",
+    "repo-doctor",
+    "proofgate",
+    "ai-assistance-manifest",
+    "model-router",
+    "local-ai-stack"
+  ],
+  "topics": {
+    "vigilanty0x": ["ai", "developer-tools", "evidence-first", "open-source", "software-quality"],
+    "portfolio-kit": ["developer-tools", "open-source", "portfolio", "software-quality"],
+    "apprentice-ai": ["ai", "developer-tools", "human-in-the-loop", "local-first"],
+    "repo-doctor": ["ci", "developer-tools", "repository-analysis", "software-quality"],
+    "proofgate": ["ci", "evidence", "release-engineering", "software-quality"],
+    "ai-assistance-manifest": ["ai", "governance", "provenance", "transparency"],
+    "model-router": ["ai", "developer-tools", "llm", "model-routing"],
+    "local-ai-stack": ["developer-tools", "llm", "local-ai", "ollama"]
+  }
+}

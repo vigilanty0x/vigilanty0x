@@ -1,0 +1,54 @@
+name: Apply and verify canonical profile settings
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "a01-profile-settings"
+  cancel-in-progress: false
+
+jobs:
+  apply-and-verify:
+    if: >-
+      github.event.issue.pull_request == null &&
+      github.event.issue.number == 4 &&
+      github.event.comment.body == '/apply-profile-settings' &&
+      github.event.comment.user.login == 'vigilanty0x'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out canonical profile repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # exact verified commit
+        with:
+          persist-credentials: false
+
+      - name: Apply bounded account and repository metadata
+        env:
+          PROFILE_ADMIN_TOKEN: ${{ secrets.PROFILE_ADMIN_TOKEN }}
+        run: python scripts/apply-profile-settings.py apply
+
+      - name: Configure the now-enabled Pages site
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # exact verified commit
+
+      - name: Upload generated evidence dashboard
+        uses: actions/upload-pages-artifact@98ef48e41587a300b82de4cf298aa98b57b2faae # exact verified commit
+        with:
+          path: docs
+
+      - name: Deploy evidence dashboard
+        id: deployment
+        uses: actions/deploy-pages@5e98f10ce206463e411e82ac66ef0f2df79c5499 # exact verified commit
+
+      - name: Verify public metadata, topics, Pages and exact pins
+        env:
+          PROFILE_ADMIN_TOKEN: ${{ secrets.PROFILE_ADMIN_TOKEN }}
+        run: python scripts/apply-profile-settings.py verify
