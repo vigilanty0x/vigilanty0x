@@ -61,7 +61,7 @@ test("issue-comment trigger is owner-only and bound to the dedicated final-gate 
 
 test("privileged token is scoped only to environment variables on local steps", () => {
   const tokenRefs = [...workflow.matchAll(/PROFILE_ADMIN_TOKEN/g)].length;
-  assert.equal(tokenRefs, 8);
+  assert.equal(tokenRefs, 9);
   const secretLines = workflow.split(/\r?\n/).filter((line) => line.includes("secrets.PROFILE_ADMIN_TOKEN"));
   assert.equal(secretLines.length, 3);
   for (const line of secretLines) {
