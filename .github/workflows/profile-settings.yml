@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
   pages: write
   id-token: write
 
@@ -31,6 +32,63 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Preflight owner credential without exposing it
+        id: preflight
+        shell: bash
+        env:
+          PROFILE_ADMIN_TOKEN: ${{ secrets.PROFILE_ADMIN_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$PROFILE_ADMIN_TOKEN" ]]; then
+            echo "secret_present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "secret_present=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Report missing owner credential safely
+        if: ${{ steps.preflight.outputs.secret_present != 'true' }}
+        env:
+          ISSUE_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          repository = os.environ["GITHUB_REPOSITORY"]
+          run_id = os.environ["GITHUB_RUN_ID"]
+          url = f"https://api.github.com/repos/{repository}/issues/4/comments"
+          body = {
+              "body": (
+                  "A01 gate status: **BLOCKED — PROFILE_ADMIN_TOKEN is not configured**. "
+                  "No account/profile mutation was attempted. Store the bounded fine-grained token "
+                  "as the repository Actions secret `PROFILE_ADMIN_TOKEN`, then post "
+                  "`/apply-profile-settings` again. Run id: `" + run_id + "`."
+              )
+          }
+          request = urllib.request.Request(
+              url,
+              data=json.dumps(body).encode("utf-8"),
+              method="POST",
+              headers={
+                  "Accept": "application/vnd.github+json",
+                  "Authorization": f"Bearer {os.environ['ISSUE_TOKEN']}",
+                  "Content-Type": "application/json",
+                  "User-Agent": "vigilanty0x-a01-profile-gate",
+                  "X-GitHub-Api-Version": "2026-03-10",
+              },
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              if response.status != 201:
+                  raise RuntimeError(f"unexpected issue comment status {response.status}")
+          PY
+
+      - name: Stop when owner credential is absent
+        if: ${{ steps.preflight.outputs.secret_present != 'true' }}
+        run: |
+          echo "A01 profile gate remains blocked on owner credential." >&2
+          exit 1
+
       - name: Apply bounded account and repository metadata
         env:
           PROFILE_ADMIN_TOKEN: ${{ secrets.PROFILE_ADMIN_TOKEN }}
@@ -52,3 +110,78 @@ jobs:
         env:
           PROFILE_ADMIN_TOKEN: ${{ secrets.PROFILE_ADMIN_TOKEN }}
         run: python scripts/apply-profile-settings.py verify
+
+      - name: Report verification failure safely
+        if: ${{ failure() && steps.preflight.outputs.secret_present == 'true' }}
+        env:
+          ISSUE_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          repository = os.environ["GITHUB_REPOSITORY"]
+          run_id = os.environ["GITHUB_RUN_ID"]
+          url = f"https://api.github.com/repos/{repository}/issues/4/comments"
+          body = {
+              "body": (
+                  "A01 gate status: **BLOCKED — apply/verification did not complete successfully**. "
+                  "The privileged token value was not exposed. Check the workflow run for the bounded "
+                  "failure category, correct the owner-only prerequisite (including exact pins if needed), "
+                  "then post `/apply-profile-settings` again. Run id: `" + run_id + "`."
+              )
+          }
+          request = urllib.request.Request(
+              url,
+              data=json.dumps(body).encode("utf-8"),
+              method="POST",
+              headers={
+                  "Accept": "application/vnd.github+json",
+                  "Authorization": f"Bearer {os.environ['ISSUE_TOKEN']}",
+                  "Content-Type": "application/json",
+                  "User-Agent": "vigilanty0x-a01-profile-gate",
+                  "X-GitHub-Api-Version": "2026-03-10",
+              },
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              if response.status != 201:
+                  raise RuntimeError(f"unexpected issue comment status {response.status}")
+          PY
+
+      - name: Report verified completion
+        if: ${{ success() }}
+        env:
+          ISSUE_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          repository = os.environ["GITHUB_REPOSITORY"]
+          run_id = os.environ["GITHUB_RUN_ID"]
+          url = f"https://api.github.com/repos/{repository}/issues/4/comments"
+          body = {
+              "body": (
+                  "A01 gate status: **VERIFIED**. Bio/site, repository homepage, required topics, "
+                  "GitHub Pages deployment, and the exact six pinned repositories all passed public "
+                  "verification. Run id: `" + run_id + "`."
+              )
+          }
+          request = urllib.request.Request(
+              url,
+              data=json.dumps(body).encode("utf-8"),
+              method="POST",
+              headers={
+                  "Accept": "application/vnd.github+json",
+                  "Authorization": f"Bearer {os.environ['ISSUE_TOKEN']}",
+                  "Content-Type": "application/json",
+                  "User-Agent": "vigilanty0x-a01-profile-gate",
+                  "X-GitHub-Api-Version": "2026-03-10",
+              },
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              if response.status != 201:
+                  raise RuntimeError(f"unexpected issue comment status {response.status}")
+          PY
