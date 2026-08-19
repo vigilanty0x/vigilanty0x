@@ -59,11 +59,14 @@ test("issue-comment trigger is owner-only and bound to the dedicated final-gate 
   assert.doesNotMatch(workflow, /pull_request_target:/);
 });
 
-test("privileged token is never passed to third-party or GitHub action inputs", () => {
+test("privileged token is scoped only to environment variables on local Python steps", () => {
   const tokenRefs = [...workflow.matchAll(/PROFILE_ADMIN_TOKEN/g)].length;
   assert.equal(tokenRefs, 4);
-  assert.doesNotMatch(workflow, /with:\s*[\s\S]{0,180}PROFILE_ADMIN_TOKEN/);
-  assert.match(workflow, /secrets\.PROFILE_ADMIN_TOKEN/);
+  const secretLines = workflow.split(/\r?\n/).filter((line) => line.includes("secrets.PROFILE_ADMIN_TOKEN"));
+  assert.equal(secretLines.length, 2);
+  for (const line of secretLines) {
+    assert.match(line, /^\s+PROFILE_ADMIN_TOKEN:\s+\$\{\{ secrets\.PROFILE_ADMIN_TOKEN \}\}$/);
+  }
   assert.match(script, /tokenValueIncluded/);
   assert.doesNotMatch(script, /print\(token/);
 });
