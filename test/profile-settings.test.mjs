@@ -59,16 +59,29 @@ test("issue-comment trigger is owner-only and bound to the dedicated final-gate 
   assert.doesNotMatch(workflow, /pull_request_target:/);
 });
 
-test("privileged token is scoped only to environment variables on local Python steps", () => {
+test("privileged token is scoped only to environment variables on local steps", () => {
   const tokenRefs = [...workflow.matchAll(/PROFILE_ADMIN_TOKEN/g)].length;
-  assert.equal(tokenRefs, 4);
+  assert.equal(tokenRefs, 8);
   const secretLines = workflow.split(/\r?\n/).filter((line) => line.includes("secrets.PROFILE_ADMIN_TOKEN"));
-  assert.equal(secretLines.length, 2);
+  assert.equal(secretLines.length, 3);
   for (const line of secretLines) {
     assert.match(line, /^\s+PROFILE_ADMIN_TOKEN:\s+\$\{\{ secrets\.PROFILE_ADMIN_TOKEN \}\}$/);
   }
   assert.match(script, /tokenValueIncluded/);
   assert.doesNotMatch(script, /print\(token/);
+});
+
+test("gate diagnostics are bounded, issue-scoped, and never report a secret value", () => {
+  assert.match(workflow, /^\s+issues:\s+write$/m);
+  assert.match(workflow, /id:\s+preflight/);
+  assert.match(workflow, /secret_present=true/);
+  assert.match(workflow, /secret_present=false/);
+  assert.match(workflow, /BLOCKED — PROFILE_ADMIN_TOKEN is not configured/);
+  assert.match(workflow, /BLOCKED — apply\/verification did not complete successfully/);
+  assert.match(workflow, /A01 gate status: \*\*VERIFIED\*\*/);
+  assert.match(workflow, /issues\/4\/comments/);
+  assert.doesNotMatch(workflow, /echo\s+"?\$PROFILE_ADMIN_TOKEN/);
+  assert.doesNotMatch(workflow, /print\([^\n]*PROFILE_ADMIN_TOKEN/);
 });
 
 test("applier preserves existing topics and verifier requires the exact pins", () => {
