@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "state": "PREPARED",
+  "scope": "PUBLIC_ONLY",
+  "governance": {
+    "repository": ".github",
+    "commit": "b5a99b401eb26deaad7b6aa144afed64f0db70b1"
+  },
+  "profile": {
+    "repository": "vigilanty0x",
+    "commit": "2f66106e4a9d852249483eda69c77974b2d44b7a"
+  },
+  "architecture": {
+    "transitionalTargetCount": 18,
+    "finalEntityCount": 16,
+    "activeRepositoryCount": 17,
+    "activeRepositories": [
+      ".github",
+      "ai-assistance-manifest",
+      "ai-software-factory",
+      "apprentice-ai",
+      "automation-control-plane",
+      "contract-lab",
+      "devdocs",
+      "local-ai-stack",
+      "model-router",
+      "portfolio-kit",
+      "promptops",
+      "proofgate",
+      "rag-lab",
+      "repo-doctor",
+      "shipcheck",
+      "trustkit",
+      "vigilanty0x"
+    ],
+    "entities": [
+      {"id": "community-governance", "repositories": [".github"]},
+      {"id": "ai-assistance-manifest", "repositories": ["ai-assistance-manifest"]},
+      {"id": "ai-software-factory", "repositories": ["ai-software-factory"]},
+      {"id": "apprentice-ai", "repositories": ["apprentice-ai"], "standalone": true},
+      {"id": "agentops", "repositories": ["automation-control-plane"]},
+      {"id": "contract-lab", "repositories": ["contract-lab"]},
+      {"id": "devdocs", "repositories": ["devdocs"]},
+      {"id": "local-ai-stack", "repositories": ["local-ai-stack"]},
+      {"id": "model-router", "repositories": ["model-router"]},
+      {"id": "portfolio-profile", "repositories": ["portfolio-kit", "vigilanty0x"]},
+      {"id": "promptops", "repositories": ["promptops"]},
+      {"id": "proofgate", "repositories": ["proofgate"]},
+      {"id": "rag-lab", "repositories": ["rag-lab"]},
+      {"id": "repo-doctor", "repositories": ["repo-doctor"]},
+      {"id": "shipcheck", "repositories": ["shipcheck"]},
+      {"id": "trustkit", "repositories": ["trustkit"]}
+    ]
+  },
+  "modules": [
+    {
+      "repository": "open-source-portfolio-generator",
+      "path": "packages/open-source-portfolio-generator",
+      "sourceHeadSha": "5f7d4dfbba40bd27208e8dc3854185f9467d2947",
+      "sourceTreeSha": "4d617df9804f263769951244f63271fad560e690",
+      "historyPreserved": true,
+      "treeMatch": true
+    },
+    {
+      "repository": "github-profile-dashboard",
+      "path": "packages/github-profile-dashboard",
+      "sourceHeadSha": "f97c4b587b68e625c86f00a914b1f7c36604e7a3",
+      "sourceTreeSha": "35dd6a7f00757cba4991eb2c1af1ce5112f743ce",
+      "historyPreserved": true,
+      "treeMatch": true
+    },
+    {
+      "repository": "build-metrics-collector",
+      "path": "packages/build-metrics-collector",
+      "sourceHeadSha": "ee2760c2cca72b8fb97594e986a438777991a0fe",
+      "sourceTreeSha": "7f78cd61eb9c5c7b233e99f4da070219754f72ed",
+      "historyPreserved": true,
+      "treeMatch": true
+    }
+  ],
+  "archive": {
+    "automatic": false,
+    "gate": "BLOCKED",
+    "required": ["release", "compatibility", "consumers", "redirect", "rollback", "humanApproval"]
+  }
+}

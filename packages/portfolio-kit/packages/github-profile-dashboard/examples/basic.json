@@ -1,0 +1,12 @@
+{
+  "repositories": [
+    {
+      "name": "demo-project",
+      "visibility": "public",
+      "stars": 3,
+      "forks": 1,
+      "open_issues": 0
+    }
+  ]
+}
+

@@ -1,0 +1,17 @@
+[build-system]
+requires=["setuptools>=68"]
+build-backend="setuptools.build_meta"
+[project]
+name="github-profile-dashboard"
+version="0.1.0"
+description="Offline public GitHub profile snapshot dashboard"
+readme="README.md"
+requires-python=">=3.11"
+license={text="Apache-2.0"}
+dependencies=[]
+[project.scripts]
+github-profile-dashboard="github_profile_dashboard:main"
+[tool.setuptools]
+package-dir={""="src"}
+[tool.setuptools.packages.find]
+where=["src"]

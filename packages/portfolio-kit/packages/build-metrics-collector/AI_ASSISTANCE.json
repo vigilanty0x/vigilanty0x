@@ -1,0 +1,19 @@
+{
+  "format_version": "1.0",
+  "project": {
+    "name": "Build Metrics Collector",
+    "repository": "https://github.com/vigilanty0x/build-metrics-collector",
+    "release": "0.1.0"
+  },
+  "assistance": {
+    "provider": "OpenAI",
+    "system": "Codex",
+    "model_family": "GPT-5",
+    "activities": ["contract drafting", "implementation", "test design", "accessible report", "documentation"]
+  },
+  "human_role": ["scope selection", "architecture approval", "publication authorization", "release ownership"],
+  "verification": ["unit and adversarial tests", "installed CLI demo", "store replay", "HTML state and accessibility checks", "credential and prohibited-reference scan", "CI"],
+  "limitations": ["no causal productivity claims", "single-writer store", "hash chain is not signed", "no individual ranking", "no remote build execution"],
+  "data": {"fixtures": "synthetic", "private_inputs_in_repository": false, "runtime_network_calls": false}
+}
+

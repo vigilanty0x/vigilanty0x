@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  portfolio-contract:
+    name: Portfolio Kit contract and counter-proofs
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Validate root architecture contract
+        run: python scripts/check_portfolio_kit.py
+      - name: Run root counter-proofs
+        run: python -m unittest discover -s tests -v
+      - name: Compile root checks
+        run: python -m compileall -q scripts tests
+
+  python-packages:
+    name: ${{ matrix.package }} / Python ${{ matrix.python-version }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+        package:
+          - build-metrics-collector
+          - github-profile-dashboard
+          - open-source-portfolio-generator
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install pinned build tooling
+        run: python -m pip install --disable-pip-version-check "build==1.2.2.post1" "setuptools==83.0.0" "wheel==0.45.1"
+      - name: Build wheel
+        working-directory: packages/${{ matrix.package }}
+        run: python -m build --no-isolation --wheel
+      - name: Install built wheel
+        working-directory: packages/${{ matrix.package }}
+        run: python -m pip install --disable-pip-version-check --force-reinstall --no-deps dist/*.whl
+      - name: Unit tests
+        working-directory: packages/${{ matrix.package }}
+        run: python -m unittest discover -s tests -v
+      - name: Public-boundary checks
+        if: ${{ matrix.package != 'build-metrics-collector' }}
+        working-directory: packages/${{ matrix.package }}
+        run: python scripts/check.py
+      - name: Compile sources and tests
+        working-directory: packages/${{ matrix.package }}
+        run: python -m compileall -q src tests
+      - name: Import installed artifact outside the checkout
+        working-directory: ${{ runner.temp }}
+        env:
+          PACKAGE_MODULE: ${{ matrix.package }}
+        run: python -c "import importlib, os; importlib.import_module(os.environ['PACKAGE_MODULE'].replace('-', '_'))"
+      - name: Installed CLI functional smoke
+        working-directory: ${{ runner.temp }}
+        env:
+          PACKAGE: ${{ matrix.package }}
+        run: |
+          case "$PACKAGE" in
+            build-metrics-collector)
+              build-metrics import-event "$GITHUB_WORKSPACE/packages/build-metrics-collector/examples/commit-event.json" --store "$RUNNER_TEMP/build-events.jsonl"
+              build-metrics ingest-junit "$GITHUB_WORKSPACE/packages/build-metrics-collector/examples/junit.xml" --store "$RUNNER_TEMP/build-events.jsonl" --project synthetic-demo --suite unit
+              build-metrics artifact examples/artifact.txt --root "$GITHUB_WORKSPACE/packages/build-metrics-collector" --store "$RUNNER_TEMP/build-events.jsonl" --project synthetic-demo --kind demo
+              build-metrics collect-git "$GITHUB_WORKSPACE" --store "$RUNNER_TEMP/build-events.jsonl" --project synthetic-demo --max-commits 20
+              build-metrics replay "$RUNNER_TEMP/build-events.jsonl" --json
+              build-metrics summarize "$RUNNER_TEMP/build-events.jsonl" --project synthetic-demo --format json --output "$RUNNER_TEMP/build-metrics.json"
+              build-metrics summarize "$RUNNER_TEMP/build-events.jsonl" --project synthetic-demo --format html --output "$RUNNER_TEMP/build-metrics.html"
+              ;;
+            github-profile-dashboard)
+              github-profile-dashboard probe
+              github-profile-dashboard build --input "$GITHUB_WORKSPACE/packages/github-profile-dashboard/examples/basic.json"
+              ;;
+            open-source-portfolio-generator)
+              portfolio-generator probe
+              portfolio-generator generate --input "$GITHUB_WORKSPACE/packages/open-source-portfolio-generator/examples/basic.json"
+              ;;
+            *)
+              echo "Unsupported package: $PACKAGE" >&2
+              exit 64
+              ;;
+          esac

@@ -1,0 +1,25 @@
+{
+  "view_version": "1.0",
+  "states": {
+    "loading": {"completion_claim": false, "requires_message": true},
+    "success": {"completion_claim": true, "requires_provenance": true},
+    "empty": {"completion_claim": true, "requires_empty_message": true},
+    "degraded": {"completion_claim": false, "requires_diagnostics": true},
+    "timeout": {"completion_claim": false, "requires_diagnostics": true},
+    "error": {"completion_claim": false, "requires_diagnostics": true}
+  },
+  "required_regions": ["status", "metrics", "provenance", "freshness", "diagnostics", "method"],
+  "actions": [
+    {"id": "skip-to-metrics", "kind": "anchor", "target": "#metrics", "keyboard": true},
+    {"id": "download-json", "kind": "download", "media_type": "application/json", "keyboard": true}
+  ],
+  "breakpoints_rem": [32, 52],
+  "accessibility": {
+    "landmarks": true,
+    "visible_focus": true,
+    "live_status": "polite",
+    "reduced_motion": true,
+    "color_only_status": false
+  }
+}
+
