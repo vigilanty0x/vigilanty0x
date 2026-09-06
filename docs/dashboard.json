@@ -65,44 +65,64 @@
     ]
   },
   "portfolio": {
-    "finalEntityCount": 16,
-    "activeRepositoryCount": 17,
+    "finalEntityCount": 8,
+    "activeRepositoryCount": 8,
+    "productRepositoryCount": 6,
+    "supportRepositoryCount": 2,
+    "privateRepositoryCount": 1,
+    "connectedRepositoryCount": 9,
+    "sourcePublicRepositoryCount": 112,
+    "implementationState": "LOCAL_ONLY",
+    "githubMigrationState": "NOT_APPLIED",
+    "deletionAuthorized": false,
     "featured": [
       {
         "repository": "automation-control-plane",
         "url": "https://github.com/vigilanty0x/automation-control-plane",
         "maturity": "prototype",
-        "verification": "PASS"
+        "verification": "PASS",
+        "verificationScope": "REMOTE_MAIN_BASELINE",
+        "consolidationState": "LOCAL_PREPARATION"
       },
       {
         "repository": "shipcheck",
         "url": "https://github.com/vigilanty0x/shipcheck",
         "maturity": "prototype",
-        "verification": "PASS"
+        "verification": "PASS",
+        "verificationScope": "REMOTE_MAIN_BASELINE",
+        "consolidationState": "LOCAL_PREPARATION"
       },
       {
         "repository": "repo-doctor",
         "url": "https://github.com/vigilanty0x/repo-doctor",
         "maturity": "prototype",
-        "verification": "PASS"
+        "verification": "PASS",
+        "verificationScope": "REMOTE_MAIN_BASELINE",
+        "consolidationState": "LOCAL_PREPARATION"
       },
       {
         "repository": "promptops",
         "url": "https://github.com/vigilanty0x/promptops",
         "maturity": "prototype",
-        "verification": "PASS"
+        "verification": "PASS",
+        "verificationScope": "REMOTE_MAIN_BASELINE",
+        "consolidationState": "LOCAL_PREPARATION"
       },
       {
         "repository": "rag-lab",
         "url": "https://github.com/vigilanty0x/rag-lab",
         "maturity": "prototype",
-        "verification": "PASS"
+        "verification": "PASS",
+        "verificationScope": "REMOTE_MAIN_BASELINE",
+        "consolidationState": "LOCAL_PREPARATION"
       },
       {
         "repository": "proofgate",
         "url": "https://github.com/vigilanty0x/proofgate",
         "maturity": "prototype",
-        "verification": "PASS"
+        "verification": "PASS",
+        "verificationScope": "REMOTE_MAIN_BASELINE",
+        "consolidationState": "LOCAL_PREPARATION"
       }
     ]
   }

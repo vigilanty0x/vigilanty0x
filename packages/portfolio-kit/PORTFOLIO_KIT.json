@@ -1,55 +1,48 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "state": "PREPARED",
+  "implementationState": "LOCAL_ONLY",
+  "githubMigrationState": "NOT_APPLIED",
   "scope": "PUBLIC_ONLY",
+  "deletionAuthorized": false,
   "governance": {
     "repository": ".github",
-    "commit": "b5a99b401eb26deaad7b6aa144afed64f0db70b1"
+    "commit": "8a9aebeae578becf987d9a7143cdb6a2f3294551",
+    "binding": "LOCAL_ONLY"
   },
   "profile": {
     "repository": "vigilanty0x",
-    "commit": "2f66106e4a9d852249483eda69c77974b2d44b7a"
+    "commit": "d95948e120c4305622fcf0d384f3e3212180d360",
+    "binding": "PUBLIC_MAIN_BASELINE"
   },
   "architecture": {
     "transitionalTargetCount": 18,
-    "finalEntityCount": 16,
-    "activeRepositoryCount": 17,
+    "sourcePublicRepositoryCount": 112,
+    "finalEntityCount": 8,
+    "productRepositoryCount": 6,
+    "supportRepositoryCount": 2,
+    "activeRepositoryCount": 8,
+    "privateRepositoryCount": 1,
+    "connectedRepositoryCount": 9,
     "activeRepositories": [
       ".github",
-      "ai-assistance-manifest",
-      "ai-software-factory",
-      "apprentice-ai",
       "automation-control-plane",
-      "contract-lab",
-      "devdocs",
-      "local-ai-stack",
-      "model-router",
-      "portfolio-kit",
       "promptops",
       "proofgate",
       "rag-lab",
       "repo-doctor",
       "shipcheck",
-      "trustkit",
       "vigilanty0x"
     ],
     "entities": [
-      {"id": "community-governance", "repositories": [".github"]},
-      {"id": "ai-assistance-manifest", "repositories": ["ai-assistance-manifest"]},
-      {"id": "ai-software-factory", "repositories": ["ai-software-factory"]},
-      {"id": "apprentice-ai", "repositories": ["apprentice-ai"], "standalone": true},
-      {"id": "agentops", "repositories": ["automation-control-plane"]},
-      {"id": "contract-lab", "repositories": ["contract-lab"]},
-      {"id": "devdocs", "repositories": ["devdocs"]},
-      {"id": "local-ai-stack", "repositories": ["local-ai-stack"]},
-      {"id": "model-router", "repositories": ["model-router"]},
-      {"id": "portfolio-profile", "repositories": ["portfolio-kit", "vigilanty0x"]},
-      {"id": "promptops", "repositories": ["promptops"]},
-      {"id": "proofgate", "repositories": ["proofgate"]},
-      {"id": "rag-lab", "repositories": ["rag-lab"]},
-      {"id": "repo-doctor", "repositories": ["repo-doctor"]},
-      {"id": "shipcheck", "repositories": ["shipcheck"]},
-      {"id": "trustkit", "repositories": ["trustkit"]}
+      {"id": "automation-control-plane", "kind": "PRODUCT", "repositories": ["automation-control-plane"]},
+      {"id": "promptops", "kind": "PRODUCT", "repositories": ["promptops"]},
+      {"id": "rag-lab", "kind": "PRODUCT", "repositories": ["rag-lab"]},
+      {"id": "shipcheck", "kind": "PRODUCT", "repositories": ["shipcheck"]},
+      {"id": "repo-doctor", "kind": "PRODUCT", "repositories": ["repo-doctor"]},
+      {"id": "proofgate", "kind": "PRODUCT", "repositories": ["proofgate"]},
+      {"id": "community-governance", "kind": "SUPPORT", "repositories": [".github"]},
+      {"id": "portfolio-profile", "kind": "SUPPORT", "repositories": ["vigilanty0x"]}
     ]
   },
   "modules": [
@@ -81,6 +74,8 @@
   "archive": {
     "automatic": false,
     "gate": "BLOCKED",
+    "deletionAuthorized": false,
+    "repositoryMutationAuthorized": false,
     "required": ["release", "compatibility", "consumers", "redirect", "rollback", "humanApproval"]
   }
 }

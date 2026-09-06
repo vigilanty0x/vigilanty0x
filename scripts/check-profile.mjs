@@ -43,13 +43,25 @@ export function validatePortfolio(portfolio) {
   if (portfolio?.schemaVersion !== 2) findings.push({ rule: "schema-version" });
 
   const architecture = portfolio?.architecture;
-  if (architecture?.state !== "PREPARED_FINAL_TOPOLOGY") findings.push({ rule: "architecture-state" });
+  if (architecture?.state !== "PREPARED_CONCRETE_SIX") findings.push({ rule: "architecture-state" });
+  if (architecture?.implementationState !== "LOCAL_ONLY") findings.push({ rule: "implementation-state" });
+  if (architecture?.githubMigrationState !== "NOT_APPLIED") findings.push({ rule: "github-migration-state" });
   if (architecture?.transitionalTargetCount !== 18) findings.push({ rule: "transitional-target-count" });
-  if (architecture?.finalEntityCount !== 16) findings.push({ rule: "final-entity-count" });
-  if (architecture?.activeRepositoryCount !== 17) findings.push({ rule: "active-repository-count" });
+  if (architecture?.publicSourceRepositoryCount !== 112) findings.push({ rule: "public-source-repository-count" });
+  if (architecture?.finalEntityCount !== 8) findings.push({ rule: "final-entity-count" });
+  if (architecture?.productRepositoryCount !== 6) findings.push({ rule: "product-repository-count" });
+  if (architecture?.supportRepositoryCount !== 2) findings.push({ rule: "support-repository-count" });
+  if (architecture?.activeRepositoryCount !== 8) findings.push({ rule: "active-repository-count" });
+  if (architecture?.privateRepositoryCount !== 1) findings.push({ rule: "private-repository-count" });
+  if (architecture?.connectedRepositoryCount !== 9) findings.push({ rule: "connected-repository-count" });
+  if (architecture?.activeRepositoryCount + architecture?.privateRepositoryCount !== architecture?.connectedRepositoryCount) {
+    findings.push({ rule: "connected-repository-arithmetic" });
+  }
   if (architecture?.governanceRepository !== ".github") findings.push({ rule: "governance-repository" });
   if (!/^[0-9a-f]{40}$/.test(architecture?.governanceCommit ?? "")) findings.push({ rule: "governance-sha" });
+  if (architecture?.governanceCommitState !== "LOCAL_ONLY") findings.push({ rule: "governance-commit-state" });
   if (architecture?.activationRequiresHumanApproval !== true) findings.push({ rule: "human-activation-gate" });
+  if (architecture?.deletionAuthorized !== false) findings.push({ rule: "deletion-authorization" });
 
   if (!Array.isArray(portfolio?.featured) || portfolio.featured.length !== 6) {
     findings.push({ rule: "featured-count" });
@@ -67,6 +79,8 @@ export function validatePortfolio(portfolio) {
     if (project.url !== `https://github.com/vigilanty0x/${project.repository}`) findings.push({ rule: "repository-url", path });
     if (!ALLOWED_MATURITY.has(project.maturity)) findings.push({ rule: "maturity", path });
     if (!ALLOWED_VERIFICATION.has(project.verification)) findings.push({ rule: "verification", path });
+    if (project.verificationScope !== "REMOTE_MAIN_BASELINE") findings.push({ rule: "verification-scope", path });
+    if (project.consolidationState !== "LOCAL_PREPARATION") findings.push({ rule: "consolidation-state", path });
     if (!/^[0-9a-f]{40}$/.test(project.headSha ?? "") || !/^[0-9a-f]{40}$/.test(project.treeSha ?? "")) findings.push({ rule: "git-sha", path });
     if (!project.evidenceReference || typeof project.evidenceReference !== "string") findings.push({ rule: "evidence-reference", path });
     if (project.verification === "BLOCKED" && !project.blockedReason) findings.push({ rule: "blocked-reason", path });

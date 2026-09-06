@@ -12,19 +12,24 @@ The modules remain individually testable. Portfolio Kit adds a **root contract**
 
 ## Architecture contract
 
-The current public governance decision distinguishes the transition state from the prepared final state:
+The current public governance decision distinguishes the observed transition
+state from the locally prepared destination:
 
-- **18 transitional targets** remain reviewable while migrations are incomplete;
-- **16 final entities** are the prepared product/program topology;
-- **17 active repositories** back those 16 entities because the portfolio/profile entity intentionally uses both `portfolio-kit` and the profile repository.
+- **18 transitional targets / 112 public repositories** remain reviewable while migrations are incomplete;
+- **6 product repositories + 2 support repositories** are the prepared public topology;
+- the connected-account target is **9 repositories**, adding one private repository represented only by an aggregate count;
+- the GitHub migration is **NOT_APPLIED** and deletion is not authorized.
 
 The root machine-readable contract is [`PORTFOLIO_KIT.json`](PORTFOLIO_KIT.json). It is bound to:
 
-- governance main commit `b5a99b401eb26deaad7b6aa144afed64f0db70b1`;
-- profile main commit `2f66106e4a9d852249483eda69c77974b2d44b7a`;
+- the exact local-only governance commit and exact public profile baseline commit recorded in the contract;
 - exact imported source SHAs and tree-match/history-preservation evidence from the consolidation rehearsal.
 
-`python scripts/check_portfolio_kit.py` fails closed when the final entity/repository counts drift, an expected canonical repository disappears, an imported module is promoted into the final active-repository set, source history/tree evidence is weakened, or archive becomes automatic.
+`python scripts/check_portfolio_kit.py` fails closed when the six-product/two-support
+topology drifts, the eight-public/nine-connected arithmetic changes, an expected
+canonical repository disappears, an imported module is promoted into the final
+active set, source history/tree evidence is weakened, GitHub migration is
+claimed, or archive/deletion becomes authorized.
 
 ## What Portfolio Kit is for
 
@@ -36,7 +41,11 @@ The root machine-readable contract is [`PORTFOLIO_KIT.json`](PORTFOLIO_KIT.json)
 
 ## Current state
 
-**PREPARED / REHEARSAL.** The imported module histories and source trees are preserved and the package matrix is CI-tested. This repository is not yet a stable release and this PR does not authorize source archival.
+**LOCAL PREPARATION / REHEARSAL.** The imported module histories and source
+trees are preserved. The containing profile repository tests this contract and
+its counter-proofs, but the prepared topology is not yet merged or applied on
+GitHub. This work does not authorize source archival, deletion, transfer, or
+redirect.
 
 The archive gate stays **BLOCKED** until release, compatibility, consumer inventory, redirect/transition handling, rollback, and explicit human approval are all satisfied.
 
@@ -46,6 +55,9 @@ The CI pipeline uses an explicit `ubuntu-24.04` runner, SHA-pinned external Acti
 
 ## Relationship to the public profile
 
-The human-facing profile lives at [`vigilanty0x/vigilanty0x`](https://github.com/vigilanty0x/vigilanty0x). Portfolio Kit is the reusable product layer behind that presentation; it does not duplicate the account profile itself.
+The human-facing profile lives at [`vigilanty0x/vigilanty0x`](https://github.com/vigilanty0x/vigilanty0x).
+In the prepared topology, Portfolio Kit lives under that repository's
+`packages/portfolio-kit` directory as the reusable catalogue layer; it does not
+remain a ninth public destination or duplicate the account profile itself.
 
 Public examples remain synthetic. No release, redirect, archive, deletion, or irreversible repository setting is performed by the root contract.

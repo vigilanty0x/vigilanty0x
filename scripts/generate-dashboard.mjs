@@ -55,6 +55,13 @@ export function verifyInputs({ snapshotText, snapshot, manifest, portfolio }) {
 
   if (portfolio?.schemaVersion !== 2 || portfolio?.owner !== "vigilanty0x") errors.push("portfolio contract mismatch");
   if (portfolio?.architecture?.transitionalTargetCount !== snapshot?.registry?.expectedTargetCount) errors.push("portfolio transitional targets disagree with live registry");
+  if (portfolio?.architecture?.state !== "PREPARED_CONCRETE_SIX") errors.push("portfolio architecture must be PREPARED_CONCRETE_SIX");
+  if (portfolio?.architecture?.implementationState !== "LOCAL_ONLY") errors.push("portfolio implementation must remain LOCAL_ONLY");
+  if (portfolio?.architecture?.githubMigrationState !== "NOT_APPLIED") errors.push("portfolio must not claim an applied GitHub migration");
+  if (portfolio?.architecture?.publicSourceRepositoryCount !== 112) errors.push("portfolio must cover 112 public sources");
+  if (portfolio?.architecture?.productRepositoryCount !== 6 || portfolio?.architecture?.supportRepositoryCount !== 2) errors.push("portfolio must prepare six products and two supports");
+  if (portfolio?.architecture?.activeRepositoryCount !== 8 || portfolio?.architecture?.privateRepositoryCount !== 1 || portfolio?.architecture?.connectedRepositoryCount !== 9) errors.push("portfolio target counts must remain eight public and nine connected");
+  if (portfolio?.architecture?.deletionAuthorized !== false) errors.push("portfolio must not authorize deletion");
   if (!Array.isArray(portfolio?.featured) || portfolio.featured.length !== 6) errors.push("portfolio must expose six featured canonical projects");
 
   if (errors.length) throw new Error(errors.join(" | "));
@@ -98,7 +105,22 @@ export function buildDashboardModel({ snapshot, manifest, portfolio, snapshotSha
     portfolio: {
       finalEntityCount: portfolio.architecture.finalEntityCount,
       activeRepositoryCount: portfolio.architecture.activeRepositoryCount,
-      featured: portfolio.featured.map(({ repository, url, maturity, verification }) => ({ repository, url, maturity, verification })),
+      productRepositoryCount: portfolio.architecture.productRepositoryCount,
+      supportRepositoryCount: portfolio.architecture.supportRepositoryCount,
+      privateRepositoryCount: portfolio.architecture.privateRepositoryCount,
+      connectedRepositoryCount: portfolio.architecture.connectedRepositoryCount,
+      sourcePublicRepositoryCount: portfolio.architecture.publicSourceRepositoryCount,
+      implementationState: portfolio.architecture.implementationState,
+      githubMigrationState: portfolio.architecture.githubMigrationState,
+      deletionAuthorized: portfolio.architecture.deletionAuthorized,
+      featured: portfolio.featured.map(({ repository, url, maturity, verification, verificationScope, consolidationState }) => ({
+        repository,
+        url,
+        maturity,
+        verification,
+        verificationScope,
+        consolidationState,
+      })),
     },
   };
 }
@@ -120,6 +142,8 @@ export function renderHtml(model) {
     ["Pending CI", state.pendingCi],
     ["Merge conflicts", state.mergeConflicts],
     ["Active consolidations", `${state.activeConsolidations}/${state.maxActiveConsolidations}`],
+    ["Prepared public target", model.portfolio.activeRepositoryCount],
+    ["Prepared connected target", model.portfolio.connectedRepositoryCount],
   ];
   const categories = Object.entries(state.categoryCounts)
     .map(([name, value]) => `<li><span>${escapeHtml(name)}</span><strong>${escapeHtml(value)}</strong></li>`)
@@ -131,7 +155,7 @@ export function renderHtml(model) {
     .map((target) => `<li>${escapeHtml(target)}</li>`)
     .join("\n            ");
   const featured = model.portfolio.featured
-    .map((project) => `<article><h3><a href="${escapeHtml(project.url)}">${escapeHtml(project.repository)}</a></h3><p>${escapeHtml(project.maturity)} · evidence ${escapeHtml(project.verification)}</p></article>`)
+    .map((project) => `<article><h3><a href="${escapeHtml(project.url)}">${escapeHtml(project.repository)}</a></h3><p>${escapeHtml(project.maturity)} · ${escapeHtml(project.consolidationState)} · baseline evidence ${escapeHtml(project.verification)}</p></article>`)
     .join("\n          ");
   const metricCards = metrics
     .map(([label, value]) => `<div class="metric"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`)
@@ -218,8 +242,8 @@ export function renderHtml(model) {
     </section>
 
     <section aria-labelledby="portfolio">
-      <h2 id="portfolio">Prepared final portfolio</h2>
-      <p class="lede">${escapeHtml(model.portfolio.finalEntityCount)} final entities / ${escapeHtml(model.portfolio.activeRepositoryCount)} active repositories are prepared. Activation remains human-gated; this live dashboard does not convert that prepared topology into a completed migration.</p>
+      <h2 id="portfolio">Locally prepared concrete-six portfolio</h2>
+      <p class="lede">${escapeHtml(model.portfolio.sourcePublicRepositoryCount)} public source repositories map to ${escapeHtml(model.portfolio.productRepositoryCount)} concrete products and ${escapeHtml(model.portfolio.supportRepositoryCount)} public supports. The prepared connected target is ${escapeHtml(model.portfolio.connectedRepositoryCount)}, including one private repository represented only as an aggregate count. State: ${escapeHtml(model.portfolio.implementationState)} / GitHub migration ${escapeHtml(model.portfolio.githubMigrationState)}. This dashboard does not claim that GitHub already has the target count.</p>
       <div class="projects">
           ${featured}
       </div>
@@ -240,7 +264,7 @@ export function renderHtml(model) {
       <p class="warning" id="stale-warning" hidden>This evidence is past its registry TTL. Treat the page as historical until a newer verified snapshot is committed.</p>
     </section>
 
-    <footer>Generated from bounded public evidence. No hosted-service SLA, source archive authorization, release authorization, or automatic repository mutation is implied.</footer>
+    <footer>Generated from bounded public evidence. No hosted-service SLA, source archive, deletion, transfer, release, or automatic repository mutation is authorized.</footer>
   </main>
   <script>
     (() => {

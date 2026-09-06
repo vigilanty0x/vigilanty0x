@@ -61,6 +61,23 @@ test("counter-proof: automatic mutation cannot be enabled", async () => {
   assert.throws(() => verifyInputs(input), /automaticMutation must be false/);
 });
 
+test("counter-proof: local preparation cannot be rendered as an applied GitHub migration", async () => {
+  const input = await baseline();
+  input.portfolio.architecture.githubMigrationState = "APPLIED";
+  assert.throws(() => verifyInputs(input), /must not claim an applied GitHub migration/);
+});
+
+test("dashboard exposes current and prepared repository counts separately", async () => {
+  const input = await baseline();
+  const { snapshotSha256 } = verifyInputs(input);
+  const model = buildDashboardModel({ ...input, snapshotSha256 });
+  assert.equal(model.state.publicRepositories, 112);
+  assert.equal(model.portfolio.activeRepositoryCount, 8);
+  assert.equal(model.portfolio.connectedRepositoryCount, 9);
+  assert.equal(model.portfolio.githubMigrationState, "NOT_APPLIED");
+  assert.equal(model.portfolio.deletionAuthorized, false);
+});
+
 test("freshness flips to STALE immediately after the registry TTL", () => {
   const expiry = "2026-09-17T23:59:59Z";
   assert.equal(freshnessAt(expiry, new Date("2026-09-17T23:59:59Z")), "CURRENT");

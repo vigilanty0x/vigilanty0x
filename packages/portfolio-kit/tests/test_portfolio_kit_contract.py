@@ -22,10 +22,10 @@ class PortfolioKitContractTests(unittest.TestCase):
     def test_baseline_is_valid(self):
         self.assertEqual(validate(BASELINE, ROOT), [])
 
-    def test_counterproof_rejects_seventeenth_entity(self):
+    def test_counterproof_rejects_ninth_public_entity(self):
         self.assert_rejected(
             lambda data: data["architecture"]["entities"].append({"id": "extra", "repositories": ["extra"]}),
-            "exactly 16",
+            "exactly 8",
         )
 
     def test_counterproof_rejects_active_repository_drift(self):
@@ -38,6 +38,24 @@ class PortfolioKitContractTests(unittest.TestCase):
         def mutate(data):
             data["architecture"]["activeRepositories"][-1] = "github-profile-dashboard"
         self.assert_rejected(mutate, "canonical set")
+
+    def test_counterproof_rejects_applied_github_migration_claim(self):
+        self.assert_rejected(
+            lambda data: data.__setitem__("githubMigrationState", "APPLIED"),
+            "must remain NOT_APPLIED",
+        )
+
+    def test_counterproof_rejects_connected_count_drift(self):
+        self.assert_rejected(
+            lambda data: data["architecture"].__setitem__("connectedRepositoryCount", 8),
+            "connectedRepositoryCount must be 9",
+        )
+
+    def test_counterproof_rejects_deletion_authorization(self):
+        self.assert_rejected(
+            lambda data: data.__setitem__("deletionAuthorized", True),
+            "deletion must remain unauthorized",
+        )
 
     def test_counterproof_rejects_lost_source_history_evidence(self):
         self.assert_rejected(
@@ -68,7 +86,13 @@ class PortfolioKitContractTests(unittest.TestCase):
     def test_counterproof_rejects_malformed_governance_sha(self):
         self.assert_rejected(
             lambda data: data["governance"].__setitem__("commit", "main"),
-            "exact 40-character SHA",
+            "exact local-only 40-character SHA",
+        )
+
+    def test_counterproof_rejects_public_governance_claim(self):
+        self.assert_rejected(
+            lambda data: data["governance"].__setitem__("binding", "PUBLIC_MAIN_BASELINE"),
+            "exact local-only 40-character SHA",
         )
 
 
