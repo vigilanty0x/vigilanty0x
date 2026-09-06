@@ -32,9 +32,9 @@ Machine-readable SHAs, evidence references, and residual limits live in [`PORTFO
 The governance decision lives in [`vigilanty0x/.github`](https://github.com/vigilanty0x/.github). It distinguishes two states on purpose:
 
 - **18 transitional targets** remain the safe review registry while migrations are incomplete.
-- **16 final entities / 17 active repositories** are the prepared end state now being activated in bounded waves.
+- **16 final entities / 17 active repositories** are the prepared end state.
 
-The first operational archive wave moved nine historical PromptOps source repositories into [`promptops/packages`](https://github.com/vigilanty0x/promptops/tree/main/packages). Those nine repositories are **archived read-only, not deleted**; their history and compatibility evidence remain in the canonical project. This records the GitHub disposition, not a completed governance gate: the central register remains `OBSERVED_NONCOMPLIANT` until repeatable rollback and complete transition notices are evidenced. The rest of the 16-entity topology is still being activated safely, one bounded wave at a time.
+Nine historical PromptOps source repositories are **archived read-only, not deleted**, with their source and compatibility evidence preserved under [`promptops/packages`](https://github.com/vigilanty0x/promptops/tree/main/packages). These archives record the current GitHub disposition; they do not activate the PromptOps absorption or any part of the prepared topology. The central register remains `OBSERVED_NONCOMPLIANT` until repeatable rollback and complete transition notices are evidenced, and the broader 16-entity topology remains prepared rather than activated.
 
 The canonical portfolio presentation is split intentionally:
 
