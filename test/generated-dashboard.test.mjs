@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 import {
@@ -10,7 +11,7 @@ import {
   verifyInputs,
 } from "../scripts/generate-dashboard.mjs";
 
-const root = new URL("../", import.meta.url).pathname;
+const root = fileURLToPath(new URL("../", import.meta.url));
 
 async function baseline() {
   const snapshotText = await readFile(new URL("../data/public-portfolio-live.bound.json", import.meta.url), "utf8");

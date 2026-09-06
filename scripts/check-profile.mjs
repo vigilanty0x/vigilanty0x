@@ -8,6 +8,14 @@ const FORBIDDEN_TOKEN_DIGESTS = new Set(["003cc88d6e2eb5d4e5a02df093ee97f3a638d8
 const REQUIRED = ["README.md", "PORTFOLIO.json", "LICENSE", "CONTRIBUTING.md", "SECURITY.md"];
 const ALLOWED_MATURITY = new Set(["prototype", "preview", "stable"]);
 const ALLOWED_VERIFICATION = new Set(["PASS", "BLOCKED", "FAIL"]);
+const REQUIRED_FEATURED = new Set([
+  "automation-control-plane",
+  "shipcheck",
+  "repo-doctor",
+  "promptops",
+  "rag-lab",
+  "proofgate",
+]);
 const TRANSITIONAL_FEATURED = new Set([
   "repo-doctor-ai",
   "safe-merge-gate",
@@ -65,6 +73,9 @@ export function validatePortfolio(portfolio) {
     if (project.maturity === "stable" && (!project.release?.tag || !/^[0-9a-f]{64}$/.test(project.release?.artifactSha256 ?? ""))) {
       findings.push({ rule: "stable-without-release-proof", path });
     }
+  }
+  if (names.size !== REQUIRED_FEATURED.size || [...REQUIRED_FEATURED].some((name) => !names.has(name))) {
+    findings.push({ rule: "featured-project-set" });
   }
   return findings;
 }
