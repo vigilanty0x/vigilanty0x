@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "target": "portfolio-kit",
+  "base": null,
+  "baseHeadSha": null,
+  "sources": [
+    {
+      "repository": "open-source-portfolio-generator",
+      "prefix": "packages/open-source-portfolio-generator",
+      "headSha": "5f7d4dfbba40bd27208e8dc3854185f9467d2947",
+      "treeSha": "4d617df9804f263769951244f63271fad560e690",
+      "ancestor": true,
+      "treeMatch": true
+    },
+    {
+      "repository": "github-profile-dashboard",
+      "prefix": "packages/github-profile-dashboard",
+      "headSha": "f97c4b587b68e625c86f00a914b1f7c36604e7a3",
+      "treeSha": "35dd6a7f00757cba4991eb2c1af1ce5112f743ce",
+      "ancestor": true,
+      "treeMatch": true
+    },
+    {
+      "repository": "build-metrics-collector",
+      "prefix": "packages/build-metrics-collector",
+      "headSha": "ee2760c2cca72b8fb97594e986a438777991a0fe",
+      "treeSha": "7f78cd61eb9c5c7b233e99f4da070219754f72ed",
+      "ancestor": true,
+      "treeMatch": true
+    }
+  ],
+  "state": "REHEARSAL_ONLY",
+  "archiveGate": "BLOCKED",
+  "reason": "Tests, compatibility, release, redirect, consumer, rollback, and human gates are not all verified."
+}

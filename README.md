@@ -14,33 +14,49 @@ The generator fails closed if the bounded source changes without its manifest, i
 
 Current bound source status: **STOPPED**. That is intentionally not rewritten to look healthier.
 
-## Start with a project
+## Six concrete projects
 
-| Canonical project | Multi-tool scope | Current maturity | Exact hosted evidence |
-|---|---|---|---|
-| [Automation Control Plane](https://github.com/vigilanty0x/automation-control-plane) | Governed jobs, DAGs, approvals, budgets, recovery, operator views, and AgentOps/AgentMesh compatibility | Prototype | `main` [`f2c3919926ac723fe41f79a960ef6e56aff149a8`](https://github.com/vigilanty0x/automation-control-plane/commit/f2c3919926ac723fe41f79a960ef6e56aff149a8), tree `16b9bae2745e9428ec7cef5ed49df3966b7ebf4a`; [CI run 34038834426](https://github.com/vigilanty0x/automation-control-plane/actions/runs/34038834426) passed 2 jobs |
-| [Shipcheck](https://github.com/vigilanty0x/shipcheck) | Merge readiness, release readiness, CI diagnostics, risk, test evidence, and rollback tooling | Prototype | `main` [`a90a3795a17b15283c731297a6dc340dd98553d9`](https://github.com/vigilanty0x/shipcheck/commit/a90a3795a17b15283c731297a6dc340dd98553d9), tree `b8144fc3911a0eff11c5085ace3831cac9bd737d`; [CI run 34040636204](https://github.com/vigilanty0x/shipcheck/actions/runs/34040636204) passed 20 jobs |
-| [Repo Doctor](https://github.com/vigilanty0x/repo-doctor) | Repository, dependency, configuration, container, database, and runtime diagnostics | Prototype | `main` [`a8dfdd4dfb0c2bc229b19f9e5519f7951552ff23`](https://github.com/vigilanty0x/repo-doctor/commit/a8dfdd4dfb0c2bc229b19f9e5519f7951552ff23), tree `d1cd218f6ecfb5463a26329cc00be507db6fb1b0`; [CI run 34040750195](https://github.com/vigilanty0x/repo-doctor/actions/runs/34040750195) passed 32 jobs |
-| [PromptOps](https://github.com/vigilanty0x/promptops) | Prompt evaluation, regression, scorecards, failure corpora, routing, and multi-model decisions | Prototype | `main` [`d1b76b180d64b655d1fcd76df13427f66e5a8ce0`](https://github.com/vigilanty0x/promptops/commit/d1b76b180d64b655d1fcd76df13427f66e5a8ce0), tree `07bd894be8d2ec12791781853ac8a775f8b73d69`; [CI run 34040771133](https://github.com/vigilanty0x/promptops/actions/runs/34040771133) passed 41 jobs |
-| [RAG Lab](https://github.com/vigilanty0x/rag-lab) | Retrieval, citation, corpus quality, freshness, datasets, indexing, and offline evaluation | Prototype | `main` [`939ffd41af0c35802ed8a99067750b8414eb10fd`](https://github.com/vigilanty0x/rag-lab/commit/939ffd41af0c35802ed8a99067750b8414eb10fd), tree `b2e28531eec8ea4e3e2f6a43c6ad6bddbb903e32`; [CI run 34041117357](https://github.com/vigilanty0x/rag-lab/actions/runs/34041117357) passed 29 jobs |
-| [ProofGate](https://github.com/vigilanty0x/proofgate) | Evidence contracts, audit trails, ledgers, replay, status truth, and structured-output guards | Prototype | `main` [`83e05a0e94e54853dc70b4fbed082d6c8c9287ba`](https://github.com/vigilanty0x/proofgate/commit/83e05a0e94e54853dc70b4fbed082d6c8c9287ba), tree `c6aaf1702a0d335a2aaf093f640bc81ff9305593`; [CI run 34040756618](https://github.com/vigilanty0x/proofgate/actions/runs/34040756618) passed 32 jobs |
+These are product destinations, not GitHub Projects boards. Each row keeps one
+public product identity while absorbing related tools behind compatibility
+paths. The source counts come from the prepared 112-repository mapping. The CI
+links prove the named remote `main` baseline only; the larger consolidation is
+still local preparation.
+
+| Canonical project | Prepared multi-tool scope | Sources | State | Exact hosted baseline evidence |
+|---|---|---:|---|---|
+| [Automation Control Plane](https://github.com/vigilanty0x/automation-control-plane) | Governed agent/software automation, worktrees, budgets, handoffs, routing, and recovery | 23 | Local preparation | `main` [`f2c3919926ac723fe41f79a960ef6e56aff149a8`](https://github.com/vigilanty0x/automation-control-plane/commit/f2c3919926ac723fe41f79a960ef6e56aff149a8); [CI 34038834426](https://github.com/vigilanty0x/automation-control-plane/actions/runs/34038834426) passed |
+| [PromptOps](https://github.com/vigilanty0x/promptops) | Prompt/model evaluation, regressions, local model operations, scorecards, and routing | 15 | Local preparation | `main` [`d1b76b180d64b655d1fcd76df13427f66e5a8ce0`](https://github.com/vigilanty0x/promptops/commit/d1b76b180d64b655d1fcd76df13427f66e5a8ce0); [CI 34040771133](https://github.com/vigilanty0x/promptops/actions/runs/34040771133) passed |
+| [RAG Lab](https://github.com/vigilanty0x/rag-lab) | Retrieval, citations, corpora, datasets, freshness, indexing, and RAG evaluation | 10 | Local preparation | `main` [`939ffd41af0c35802ed8a99067750b8414eb10fd`](https://github.com/vigilanty0x/rag-lab/commit/939ffd41af0c35802ed8a99067750b8414eb10fd); [CI 34041117357](https://github.com/vigilanty0x/rag-lab/actions/runs/34041117357) passed |
+| [Shipcheck](https://github.com/vigilanty0x/shipcheck) | CI, merge/release readiness, risk, test evidence, deployment truth, and rollback | 15 | Local preparation | `main` [`a90a3795a17b15283c731297a6dc340dd98553d9`](https://github.com/vigilanty0x/shipcheck/commit/a90a3795a17b15283c731297a6dc340dd98553d9); [CI 34040636204](https://github.com/vigilanty0x/shipcheck/actions/runs/34040636204) passed |
+| [Repo Doctor](https://github.com/vigilanty0x/repo-doctor) | Repository/runtime diagnostics, dependency/configuration health, developer docs, and provenance | 26 | Local preparation | `main` [`a8dfdd4dfb0c2bc229b19f9e5519f7951552ff23`](https://github.com/vigilanty0x/repo-doctor/commit/a8dfdd4dfb0c2bc229b19f9e5519f7951552ff23); [CI 34040750195](https://github.com/vigilanty0x/repo-doctor/actions/runs/34040750195) passed |
+| [ProofGate](https://github.com/vigilanty0x/proofgate) | Evidence/audit/replay plus TrustKit security and Contract Lab API/schema checks | 16 | Local preparation | `main` [`83e05a0e94e54853dc70b4fbed082d6c8c9287ba`](https://github.com/vigilanty0x/proofgate/commit/83e05a0e94e54853dc70b4fbed082d6c8c9287ba); [CI 34040756618](https://github.com/vigilanty0x/proofgate/actions/runs/34040756618) passed |
 
 Machine-readable SHAs, evidence references, and residual limits live in [`PORTFOLIO.json`](PORTFOLIO.json).
 
 ## Portfolio architecture
 
-The governance decision lives in [`vigilanty0x/.github`](https://github.com/vigilanty0x/.github). It distinguishes two states on purpose:
+The prepared governance contract is pinned to local `.github` commit
+`8a9aebeae578becf987d9a7143cdb6a2f3294551`. That commit has not been pushed;
+the linked [`vigilanty0x/.github`](https://github.com/vigilanty0x/.github)
+repository still shows the prior public baseline. The prepared contract
+distinguishes two states on purpose:
 
-- **18 transitional targets** remain the safe review registry while migrations are incomplete.
-- **16 final entities / 17 active repositories** are the prepared end state.
+- **18 transitional targets / 112 public repositories** remain the observed review registry while migrations are incomplete.
+- **6 product repositories + 2 public support repositories** cover those 112 public source identities in the locally prepared destination map.
+- The connected-account target is **9 repositories** because it adds one private repository represented only as an aggregate count.
+- The GitHub migration state is **NOT_APPLIED** and deletion is **not authorized**.
 
-Nine historical PromptOps source repositories are **archived read-only, not deleted**, with their source and compatibility evidence preserved under [`promptops/packages`](https://github.com/vigilanty0x/promptops/tree/main/packages). These archives record the current GitHub disposition; they do not activate the PromptOps absorption or any part of the prepared topology. The central register remains `OBSERVED_NONCOMPLIANT` until repeatable rollback and complete transition notices are evidenced, and the broader 16-entity topology remains prepared rather than activated.
+Nine historical PromptOps source repositories are **archived read-only, not deleted**, with their source and compatibility evidence preserved under [`promptops/packages`](https://github.com/vigilanty0x/promptops/tree/main/packages). These archives record the current GitHub disposition; they do not activate the PromptOps absorption or any part of the prepared topology. The central register remains `OBSERVED_NONCOMPLIANT` until repeatable rollback and complete transition notices are evidenced. Its earlier 16-entity plan is historical input; this local contract supersedes it with eight public destinations without claiming activation.
 
-The canonical portfolio presentation is split intentionally:
+The two public support repositories are split intentionally:
 
-- [`vigilanty0x/vigilanty0x`](https://github.com/vigilanty0x/vigilanty0x) — the human-facing profile and generated evidence dashboard;
-- [`portfolio-kit`](https://github.com/vigilanty0x/portfolio-kit) — the reusable portfolio/catalogue product target;
+- [`vigilanty0x/vigilanty0x`](https://github.com/vigilanty0x/vigilanty0x) — the human-facing profile, generated evidence dashboard, and locally imported Portfolio Kit package;
 - [`.github`](https://github.com/vigilanty0x/.github) — governance, policy, state vocabulary, and reusable CI.
+
+Portfolio Kit and its three tools are prepared under
+`packages/portfolio-kit`; workflow templates are prepared under `.github`.
+Their existing GitHub repositories remain part of the observed state until a
+separately approved transition is verified.
 
 [`profile-settings.json`](profile-settings.json) declares these six umbrella repositories as the intended profile pins. It does not claim that GitHub account pins were applied; that remains a separate owner-only operation.
 
@@ -69,10 +85,28 @@ The six projects above are intentionally shown as **Prototype** here even when t
 - No project is called production-ready because a workflow file exists or a test count is large.
 - No adoption, benchmark, latency, or quality claim is made without a dated reproducible measurement.
 - Transitional repositories are not presented as final products merely because they still exist publicly.
+- The local `codex/consolidate-six` work is not presented as merged, pushed, or applied to GitHub.
+- The prepared count of nine is not presented as the current visible GitHub repository count.
+- No source deletion, archive, transfer, or redirect is authorized by this profile.
 
 ## Public-data boundary
 
 Public examples and fixtures are synthetic. Credentials, customer identifiers, non-public prompts, service coordinates, and production-derived datasets do not belong in this portfolio. The repository gate scans the public tree without printing the excluded token it is designed to detect.
+
+## Local verification
+
+```bash
+python scripts/check_monorepo.py
+node scripts/check-profile.mjs --root .
+node scripts/generate-dashboard.mjs --root . --check --require-current
+cd packages/portfolio-kit
+python scripts/check_portfolio_kit.py
+python -m unittest discover -s tests -p 'test_*.py'
+```
+
+These commands validate the prepared repository contents. They do not inspect
+or mutate GitHub repository settings and cannot prove that the visible account
+count has changed.
 
 ## Contributing
 

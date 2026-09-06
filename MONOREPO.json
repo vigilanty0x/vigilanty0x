@@ -1,0 +1,72 @@
+{
+  "delete_authorized": false,
+  "github_migration_state": "NOT_APPLIED",
+  "schema_version": 1,
+  "status": "LOCAL_PREPARATION",
+  "target": {
+    "kind": "SUPPORT",
+    "repository": "vigilanty0x/vigilanty0x",
+    "sources": [
+      {
+        "disposition": "ABSORB",
+        "repository": "vigilanty0x/build-metrics-collector",
+        "source": {
+          "archived": false,
+          "default_branch": "main",
+          "head": "ee2760c2cca72b8fb97594e986a438777991a0fe",
+          "tree": "7f78cd61eb9c5c7b233e99f4da070219754f72ed",
+          "visibility": "PUBLIC"
+        },
+        "target_path": "packages/portfolio-kit/packages/build-metrics-collector"
+      },
+      {
+        "disposition": "ABSORB",
+        "repository": "vigilanty0x/github-profile-dashboard",
+        "source": {
+          "archived": false,
+          "default_branch": "main",
+          "head": "f97c4b587b68e625c86f00a914b1f7c36604e7a3",
+          "tree": "35dd6a7f00757cba4991eb2c1af1ce5112f743ce",
+          "visibility": "PUBLIC"
+        },
+        "target_path": "packages/portfolio-kit/packages/github-profile-dashboard"
+      },
+      {
+        "disposition": "ABSORB",
+        "repository": "vigilanty0x/open-source-portfolio-generator",
+        "source": {
+          "archived": false,
+          "default_branch": "main",
+          "head": "5f7d4dfbba40bd27208e8dc3854185f9467d2947",
+          "tree": "4d617df9804f263769951244f63271fad560e690",
+          "visibility": "PUBLIC"
+        },
+        "target_path": "packages/portfolio-kit/packages/open-source-portfolio-generator"
+      },
+      {
+        "disposition": "ABSORB",
+        "repository": "vigilanty0x/portfolio-kit",
+        "source": {
+          "archived": false,
+          "default_branch": "main",
+          "head": "44600bfb699aba880f01d100e216684bdcbe7e1f",
+          "tree": "e7948201d51e107c4290ff43c8fb5fe7353416d9",
+          "visibility": "PUBLIC"
+        },
+        "target_path": "packages/portfolio-kit"
+      },
+      {
+        "disposition": "KEEP",
+        "repository": "vigilanty0x/vigilanty0x",
+        "source": {
+          "archived": false,
+          "default_branch": "main",
+          "head": "d95948e120c4305622fcf0d384f3e3212180d360",
+          "tree": "b7ffa6ff6b1be87080d1b0e64fdbc278fb4c2b94",
+          "visibility": "PUBLIC"
+        },
+        "target_path": "."
+      }
+    ]
+  }
+}

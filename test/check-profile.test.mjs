@@ -3,13 +3,22 @@ import test from "node:test";
 import { validatePortfolio, validateWorkflowText } from "../scripts/check-profile.mjs";
 
 const architecture = () => ({
-  state: "PREPARED_FINAL_TOPOLOGY",
+  state: "PREPARED_CONCRETE_SIX",
+  implementationState: "LOCAL_ONLY",
+  githubMigrationState: "NOT_APPLIED",
   transitionalTargetCount: 18,
-  finalEntityCount: 16,
-  activeRepositoryCount: 17,
+  publicSourceRepositoryCount: 112,
+  finalEntityCount: 8,
+  productRepositoryCount: 6,
+  supportRepositoryCount: 2,
+  activeRepositoryCount: 8,
+  privateRepositoryCount: 1,
+  connectedRepositoryCount: 9,
   governanceRepository: ".github",
   governanceCommit: "a".repeat(40),
-  activationRequiresHumanApproval: true
+  governanceCommitState: "LOCAL_ONLY",
+  activationRequiresHumanApproval: true,
+  deletionAuthorized: false
 });
 
 const expectedFeatured = [
@@ -30,6 +39,8 @@ const project = (repository, index) => ({
   headSha: "a".repeat(40),
   treeSha: "b".repeat(40),
   verification: "PASS",
+  verificationScope: "REMOTE_MAIN_BASELINE",
+  consolidationState: "LOCAL_PREPARATION",
   evidenceReference: "synthetic exact-SHA verification evidence",
   release: null
 });
@@ -40,7 +51,7 @@ const portfolio = () => ({
   featured: expectedFeatured.map((repository, index) => project(repository, index))
 });
 
-test("accepts six canonical entries bound to the prepared 16/17 architecture", () => {
+test("accepts six canonical entries bound to the locally prepared 8-public/9-connected architecture", () => {
   assert.deepEqual(validatePortfolio(portfolio()), []);
 });
 
@@ -72,8 +83,39 @@ test("counter-proof: an arbitrary canonical repository cannot replace an umbrell
 
 test("counter-proof: final entity count drift is rejected", () => {
   const candidate = portfolio();
-  candidate.architecture.finalEntityCount = 17;
+  candidate.architecture.finalEntityCount = 9;
   assert.ok(validatePortfolio(candidate).some((finding) => finding.rule === "final-entity-count"));
+});
+
+test("counter-proof: local preparation cannot claim GitHub migration", () => {
+  const candidate = portfolio();
+  candidate.architecture.githubMigrationState = "APPLIED";
+  assert.ok(validatePortfolio(candidate).some((finding) => finding.rule === "github-migration-state"));
+});
+
+test("counter-proof: the prepared governance commit cannot masquerade as public main", () => {
+  const candidate = portfolio();
+  candidate.architecture.governanceCommitState = "PUBLIC_MAIN";
+  assert.ok(validatePortfolio(candidate).some((finding) => finding.rule === "governance-commit-state"));
+});
+
+test("counter-proof: connected target remains eight public plus one private aggregate", () => {
+  const candidate = portfolio();
+  candidate.architecture.connectedRepositoryCount = 8;
+  assert.ok(validatePortfolio(candidate).some((finding) => finding.rule === "connected-repository-count"));
+  assert.ok(validatePortfolio(candidate).some((finding) => finding.rule === "connected-repository-arithmetic"));
+});
+
+test("counter-proof: deletion is never authorized by profile metadata", () => {
+  const candidate = portfolio();
+  candidate.architecture.deletionAuthorized = true;
+  assert.ok(validatePortfolio(candidate).some((finding) => finding.rule === "deletion-authorization"));
+});
+
+test("counter-proof: baseline verification cannot masquerade as completed consolidation", () => {
+  const candidate = portfolio();
+  candidate.featured[0].consolidationState = "MIGRATED";
+  assert.ok(validatePortfolio(candidate).some((finding) => finding.rule === "consolidation-state"));
 });
 
 test("counter-proof: final activation cannot lose its human gate", () => {

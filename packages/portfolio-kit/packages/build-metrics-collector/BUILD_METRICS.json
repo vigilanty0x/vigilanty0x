@@ -1,0 +1,38 @@
+{
+  "release": "0.1.0",
+  "measured_at": "2026-08-15",
+  "runtime_dependencies": 0,
+  "unit_tests": {
+    "count": 39,
+    "passed": 39,
+    "failed": 0,
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -v"
+  },
+  "verification": {
+    "compileall": "passed",
+    "synthetic_records": 7,
+    "synthetic_summary_state": "success",
+    "store_replay": "passed",
+    "json_summary": "passed",
+    "html_summary": "passed",
+    "view_states_tested": 6,
+    "responsive_breakpoints_tested": 2,
+    "visible_custom_buttons": 0,
+    "working_report_actions": 2,
+    "wheel_build": "passed",
+    "isolated_install": "passed",
+    "installed_cli_version": "build-metrics 0.1.0"
+  },
+  "wheel": {
+    "filename": "build_metrics_collector-0.1.0-py3-none-any.whl",
+    "sha256": "a23c4c4ac162bf5419083639741d0e42804e423322e72db5d42148054a7a1a98"
+  },
+  "default_limits": {
+    "event_import_bytes": 1048576,
+    "adapter_file_bytes": 67108864,
+    "record_bytes": 524288,
+    "store_bytes": 134217728,
+    "git_commits": 1000,
+    "git_timeout_seconds": 10
+  }
+}

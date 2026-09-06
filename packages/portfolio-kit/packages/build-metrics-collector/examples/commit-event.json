@@ -1,0 +1,11 @@
+{
+  "event_version": "1.0",
+  "event_id": "synthetic-commit-1",
+  "idempotency_key": "synthetic-commit-1",
+  "project": "synthetic-demo",
+  "type": "commit",
+  "occurred_at": "2026-08-15T10:01:00Z",
+  "source": {"kind": "synthetic", "uri": "synthetic:fixture"},
+  "data": {"sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "additions": 42, "deletions": 7}
+}
+

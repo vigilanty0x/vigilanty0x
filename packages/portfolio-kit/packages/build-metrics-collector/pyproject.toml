@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "build-metrics-collector"
+version = "0.1.0"
+description = "Reproducible metrics for AI-assisted software builds"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Apache-2.0"}
+authors = [{name = "vigilanty0x"}]
+keywords = ["metrics", "portfolio", "build", "provenance", "ai-assistance"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Build Tools",
+]
+dependencies = []
+
+[project.scripts]
+build-metrics = "build_metrics_collector.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/vigilanty0x/build-metrics-collector"
+Issues = "https://github.com/vigilanty0x/build-metrics-collector/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+

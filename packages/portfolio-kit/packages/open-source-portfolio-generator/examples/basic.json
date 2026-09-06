@@ -1,0 +1,12 @@
+{
+  "display_name": "Example portfolio",
+  "repositories": [
+    {
+      "name": "demo-project",
+      "visibility": "public",
+      "description": "A small example.",
+      "stars": 3
+    }
+  ]
+}
+

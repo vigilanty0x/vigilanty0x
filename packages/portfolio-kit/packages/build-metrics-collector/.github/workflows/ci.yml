@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: python -m pip install .
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Compile
+        run: python -m compileall -q src tests
+      - name: Synthetic event
+        run: build-metrics import-event examples/commit-event.json --store /tmp/build-events.jsonl
+      - name: JUnit adapter
+        run: build-metrics ingest-junit examples/junit.xml --store /tmp/build-events.jsonl --project synthetic-demo --suite unit
+      - name: Artifact adapter
+        run: build-metrics artifact examples/artifact.txt --root . --store /tmp/build-events.jsonl --project synthetic-demo --kind demo
+      - name: Git adapter
+        run: build-metrics collect-git . --store /tmp/build-events.jsonl --project synthetic-demo --max-commits 20
+      - name: Replay
+        run: build-metrics replay /tmp/build-events.jsonl --json
+      - name: JSON summary
+        run: build-metrics summarize /tmp/build-events.jsonl --project synthetic-demo --format json --output /tmp/build-metrics.json
+      - name: Accessible HTML summary
+        run: build-metrics summarize /tmp/build-events.jsonl --project synthetic-demo --format html --output /tmp/build-metrics.html
+
