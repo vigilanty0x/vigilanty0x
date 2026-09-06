@@ -7,12 +7,12 @@ const workflow = fs.readFileSync(".github/workflows/profile-settings.yml", "utf8
 const script = fs.readFileSync("scripts/apply-profile-settings.py", "utf8");
 
 const expectedPins = [
-  "apprentice-ai",
+  "automation-control-plane",
+  "shipcheck",
   "repo-doctor",
+  "promptops",
+  "rag-lab",
   "proofgate",
-  "ai-assistance-manifest",
-  "model-router",
-  "local-ai-stack",
 ];
 const transitional = new Set([
   "repo-doctor-ai",
@@ -43,7 +43,10 @@ test("exact six canonical pins are required and transitional identities are excl
 test("topic contract is valid, bounded, and includes each pinned repository", () => {
   assert.ok(settings.topics.vigilanty0x);
   assert.ok(settings.topics["portfolio-kit"]);
-  for (const repo of expectedPins) assert.ok(settings.topics[repo], `missing topics for ${repo}`);
+  for (const repo of expectedPins) {
+    assert.ok(settings.topics[repo], `missing topics for ${repo}`);
+    assert.ok(settings.topics[repo].includes("multi-tool"), `missing multi-tool topic for ${repo}`);
+  }
   for (const [repo, topics] of Object.entries(settings.topics)) {
     assert.ok(topics.length > 0 && topics.length <= 20, `invalid topic count for ${repo}`);
     assert.equal(new Set(topics).size, topics.length, `duplicate topic for ${repo}`);

@@ -12,10 +12,19 @@ const architecture = () => ({
   activationRequiresHumanApproval: true
 });
 
-const project = (index) => ({
+const expectedFeatured = [
+  "automation-control-plane",
+  "shipcheck",
+  "repo-doctor",
+  "promptops",
+  "rag-lab",
+  "proofgate",
+];
+
+const project = (repository, index) => ({
   area: `area-${index}`,
-  repository: `repo-${index}`,
-  url: `https://github.com/vigilanty0x/repo-${index}`,
+  repository,
+  url: `https://github.com/vigilanty0x/${repository}`,
   canonical: true,
   maturity: "prototype",
   headSha: "a".repeat(40),
@@ -28,7 +37,7 @@ const project = (index) => ({
 const portfolio = () => ({
   schemaVersion: 2,
   architecture: architecture(),
-  featured: Array.from({ length: 6 }, (_, index) => project(index))
+  featured: expectedFeatured.map((repository, index) => project(repository, index))
 });
 
 test("accepts six canonical entries bound to the prepared 16/17 architecture", () => {
@@ -52,6 +61,13 @@ test("counter-proof: a transitional repository cannot return to the featured six
   candidate.featured[0].repository = "agent-dashboard";
   candidate.featured[0].url = "https://github.com/vigilanty0x/agent-dashboard";
   assert.ok(validatePortfolio(candidate).some((finding) => finding.rule === "transitional-featured-identity"));
+});
+
+test("counter-proof: an arbitrary canonical repository cannot replace an umbrella project", () => {
+  const candidate = portfolio();
+  candidate.featured[0].repository = "apprentice-ai";
+  candidate.featured[0].url = "https://github.com/vigilanty0x/apprentice-ai";
+  assert.ok(validatePortfolio(candidate).some((finding) => finding.rule === "featured-project-set"));
 });
 
 test("counter-proof: final entity count drift is rejected", () => {

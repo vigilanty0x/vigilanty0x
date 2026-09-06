@@ -69,8 +69,14 @@
     "activeRepositoryCount": 17,
     "featured": [
       {
-        "repository": "apprentice-ai",
-        "url": "https://github.com/vigilanty0x/apprentice-ai",
+        "repository": "automation-control-plane",
+        "url": "https://github.com/vigilanty0x/automation-control-plane",
+        "maturity": "prototype",
+        "verification": "PASS"
+      },
+      {
+        "repository": "shipcheck",
+        "url": "https://github.com/vigilanty0x/shipcheck",
         "maturity": "prototype",
         "verification": "PASS"
       },
@@ -81,26 +87,20 @@
         "verification": "PASS"
       },
       {
+        "repository": "promptops",
+        "url": "https://github.com/vigilanty0x/promptops",
+        "maturity": "prototype",
+        "verification": "PASS"
+      },
+      {
+        "repository": "rag-lab",
+        "url": "https://github.com/vigilanty0x/rag-lab",
+        "maturity": "prototype",
+        "verification": "PASS"
+      },
+      {
         "repository": "proofgate",
         "url": "https://github.com/vigilanty0x/proofgate",
-        "maturity": "prototype",
-        "verification": "PASS"
-      },
-      {
-        "repository": "ai-assistance-manifest",
-        "url": "https://github.com/vigilanty0x/ai-assistance-manifest",
-        "maturity": "prototype",
-        "verification": "PASS"
-      },
-      {
-        "repository": "model-router",
-        "url": "https://github.com/vigilanty0x/model-router",
-        "maturity": "prototype",
-        "verification": "PASS"
-      },
-      {
-        "repository": "local-ai-stack",
-        "url": "https://github.com/vigilanty0x/local-ai-stack",
         "maturity": "prototype",
         "verification": "PASS"
       }

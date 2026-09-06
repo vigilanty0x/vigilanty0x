@@ -3,7 +3,7 @@
   "owner": "vigilanty0x",
   "issueGate": 4,
   "profile": {
-    "bio": "Evidence-first tools for dependable AI and software workflows.",
+    "bio": "Evidence-first multi-tool projects for dependable AI and software workflows.",
     "website": "https://vigilanty0x.github.io/vigilanty0x/"
   },
   "pages": {
@@ -12,21 +12,21 @@
     "expectedUrl": "https://vigilanty0x.github.io/vigilanty0x/"
   },
   "pins": [
-    "apprentice-ai",
+    "automation-control-plane",
+    "shipcheck",
     "repo-doctor",
-    "proofgate",
-    "ai-assistance-manifest",
-    "model-router",
-    "local-ai-stack"
+    "promptops",
+    "rag-lab",
+    "proofgate"
   ],
   "topics": {
-    "vigilanty0x": ["ai", "developer-tools", "evidence-first", "open-source", "software-quality"],
-    "portfolio-kit": ["developer-tools", "open-source", "portfolio", "software-quality"],
-    "apprentice-ai": ["ai", "developer-tools", "human-in-the-loop", "local-first"],
-    "repo-doctor": ["ci", "developer-tools", "repository-analysis", "software-quality"],
-    "proofgate": ["ci", "evidence", "release-engineering", "software-quality"],
-    "ai-assistance-manifest": ["ai", "governance", "provenance", "transparency"],
-    "model-router": ["ai", "developer-tools", "llm", "model-routing"],
-    "local-ai-stack": ["developer-tools", "llm", "local-ai", "ollama"]
+    "vigilanty0x": ["developer-tools", "github-profile", "portfolio"],
+    "portfolio-kit": ["automation", "github-profile", "multi-tool", "portfolio", "python", "toolkit"],
+    "automation-control-plane": ["agentops", "automation", "multi-tool", "orchestration", "python", "toolkit"],
+    "shipcheck": ["ci-cd", "multi-tool", "python", "release", "testing", "toolkit"],
+    "repo-doctor": ["developer-tools", "multi-tool", "python", "repository-audit", "static-analysis", "toolkit"],
+    "promptops": ["benchmarking", "llm-evaluation", "multi-tool", "prompt-engineering", "python", "toolkit"],
+    "rag-lab": ["information-retrieval", "llm-evaluation", "multi-tool", "python", "rag", "toolkit"],
+    "proofgate": ["ci-cd", "evidence", "multi-tool", "python", "toolkit", "verification"]
   }
 }

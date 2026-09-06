@@ -1,27 +1,39 @@
 {
   "schemaVersion": 2,
   "owner": "vigilanty0x",
-  "snapshotAt": "2026-08-18T16:30:57Z",
+  "snapshotAt": "2026-09-06T15:31:58Z",
   "architecture": {
     "state": "PREPARED_FINAL_TOPOLOGY",
     "transitionalTargetCount": 18,
     "finalEntityCount": 16,
     "activeRepositoryCount": 17,
     "governanceRepository": ".github",
-    "governanceCommit": "b5a99b401eb26deaad7b6aa144afed64f0db70b1",
+    "governanceCommit": "9577a196240904e0f19c2ad3c4ded3f83ec68372",
     "activationRequiresHumanApproval": true
   },
   "featured": [
     {
-      "area": "bounded-learning",
-      "repository": "apprentice-ai",
-      "url": "https://github.com/vigilanty0x/apprentice-ai",
+      "area": "automation-operations",
+      "repository": "automation-control-plane",
+      "url": "https://github.com/vigilanty0x/automation-control-plane",
       "canonical": true,
       "maturity": "prototype",
-      "headSha": "c755c36afbad31c417b52189d68083f7052df09e",
-      "treeSha": "d7cc6b041be24f07fb392adc1334137d5c8fc301",
+      "headSha": "f2c3919926ac723fe41f79a960ef6e56aff149a8",
+      "treeSha": "16b9bae2745e9428ec7cef5ed49df3966b7ebf4a",
       "verification": "PASS",
-      "evidenceReference": "Merged PR #1 records 88/88 source tests, 88/88 installed-wheel tests, wheel/sdist offline rebuilds, and hosted run 31965986053 with 7/7 jobs green.",
+      "evidenceReference": "Exact main head/tree is covered by successful hosted CI run 34038834426 with 2/2 jobs green: https://github.com/vigilanty0x/automation-control-plane/actions/runs/34038834426",
+      "release": null
+    },
+    {
+      "area": "delivery-readiness",
+      "repository": "shipcheck",
+      "url": "https://github.com/vigilanty0x/shipcheck",
+      "canonical": true,
+      "maturity": "prototype",
+      "headSha": "a90a3795a17b15283c731297a6dc340dd98553d9",
+      "treeSha": "b8144fc3911a0eff11c5085ace3831cac9bd737d",
+      "verification": "PASS",
+      "evidenceReference": "Exact main head/tree is covered by successful hosted CI run 34040636204 with 20/20 jobs green, including the imported suites: https://github.com/vigilanty0x/shipcheck/actions/runs/34040636204",
       "release": null
     },
     {
@@ -30,10 +42,34 @@
       "url": "https://github.com/vigilanty0x/repo-doctor",
       "canonical": true,
       "maturity": "prototype",
-      "headSha": "9addb38f03173b662a4796411fa039112d904682",
-      "treeSha": "399f2c32a600c65ac5660541f2bfa258eac09b46",
+      "headSha": "a8dfdd4dfb0c2bc229b19f9e5519f7951552ff23",
+      "treeSha": "d1cd218f6ecfb5463a26329cc00be507db6fb1b0",
       "verification": "PASS",
-      "evidenceReference": "Merged PR #4 binds the exact main tree to 115 tests, source/wheel/sdist release gating, Linux and Windows on Python 3.11/3.12, and green run 32064684404.",
+      "evidenceReference": "Exact main head/tree is covered by successful hosted CI run 34040750195 with 32/32 jobs green across the root product and 14 imported packages: https://github.com/vigilanty0x/repo-doctor/actions/runs/34040750195",
+      "release": null
+    },
+    {
+      "area": "prompt-quality-operations",
+      "repository": "promptops",
+      "url": "https://github.com/vigilanty0x/promptops",
+      "canonical": true,
+      "maturity": "prototype",
+      "headSha": "d1b76b180d64b655d1fcd76df13427f66e5a8ce0",
+      "treeSha": "07bd894be8d2ec12791781853ac8a775f8b73d69",
+      "verification": "PASS",
+      "evidenceReference": "Exact main head/tree is covered by successful hosted CI run 34040771133 with 41/41 jobs green across the root product, nine consolidated packages, and wheel provenance: https://github.com/vigilanty0x/promptops/actions/runs/34040771133",
+      "release": null
+    },
+    {
+      "area": "retrieval-evaluation",
+      "repository": "rag-lab",
+      "url": "https://github.com/vigilanty0x/rag-lab",
+      "canonical": true,
+      "maturity": "prototype",
+      "headSha": "939ffd41af0c35802ed8a99067750b8414eb10fd",
+      "treeSha": "b2e28531eec8ea4e3e2f6a43c6ad6bddbb903e32",
+      "verification": "PASS",
+      "evidenceReference": "Exact main head/tree is covered by successful hosted CI run 34041117357 with 29/29 jobs green across the root product, eight imported packages, and candidate attestation: https://github.com/vigilanty0x/rag-lab/actions/runs/34041117357",
       "release": null
     },
     {
@@ -42,46 +78,10 @@
       "url": "https://github.com/vigilanty0x/proofgate",
       "canonical": true,
       "maturity": "prototype",
-      "headSha": "7b4fd1eb84241f647a91d55dd478a78f60105b31",
-      "treeSha": "35dfeb34bce1cb48ca8f1457037fdbd3f4a94e51",
+      "headSha": "83e05a0e94e54853dc70b4fbed082d6c8c9287ba",
+      "treeSha": "c6aaf1702a0d335a2aaf093f640bc81ff9305593",
       "verification": "PASS",
-      "evidenceReference": "Merged PR #5 records 87 tests from source, installed wheel and installed sdist plus focused release gates and adversarial regressions.",
-      "release": null
-    },
-    {
-      "area": "ai-provenance",
-      "repository": "ai-assistance-manifest",
-      "url": "https://github.com/vigilanty0x/ai-assistance-manifest",
-      "canonical": true,
-      "maturity": "prototype",
-      "headSha": "d47ed252a2f480a378a0906421e9ed969b5d8bec",
-      "treeSha": "fb5d6e171be5ba896962d27517f0604a3fbbae31",
-      "verification": "PASS",
-      "evidenceReference": "Exact main SHA is unchanged from the prior profile snapshot whose verification state was PASS.",
-      "release": null
-    },
-    {
-      "area": "model-routing",
-      "repository": "model-router",
-      "url": "https://github.com/vigilanty0x/model-router",
-      "canonical": true,
-      "maturity": "prototype",
-      "headSha": "141496b3c601234becbf928a7ea99a26b52571a7",
-      "treeSha": "e07f1dabcdd1eafd6fd917d5d24044d8fa121846",
-      "verification": "PASS",
-      "evidenceReference": "Exact main SHA is unchanged from the prior profile snapshot whose verification state was PASS.",
-      "release": null
-    },
-    {
-      "area": "local-ai",
-      "repository": "local-ai-stack",
-      "url": "https://github.com/vigilanty0x/local-ai-stack",
-      "canonical": true,
-      "maturity": "prototype",
-      "headSha": "f7f18c5eb0025c6486158d830a26947c14c649eb",
-      "treeSha": "62b670fe9c8eeae3e293e1fe324179228961c086",
-      "verification": "PASS",
-      "evidenceReference": "Exact main SHA is unchanged from the prior profile snapshot whose verification state was PASS.",
+      "evidenceReference": "Exact main head/tree is covered by successful hosted CI run 34040756618 with 32/32 jobs green across the root product and five imported packages: https://github.com/vigilanty0x/proofgate/actions/runs/34040756618",
       "release": null
     }
   ]
